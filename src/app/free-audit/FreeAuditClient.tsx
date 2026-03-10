@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ArrowRight, 
   CheckCircle, 
@@ -10,7 +11,10 @@ import {
   Users, 
   Zap,
   FileText,
-  Mail
+  Mail,
+  Loader2,
+  Sparkles,
+  Gift
 } from 'lucide-react';
 
 // Icon mapping
@@ -176,6 +180,63 @@ export default function FreeAuditClient({ pageData, siteSettings }: FreeAuditCli
   const testimonial = page.testimonial || fallbackPageData.testimonial;
   const contactEmail = siteSettings?.email || page.contactEmail || fallbackPageData.contactEmail;
 
+  // Form state
+  const [formData, setFormData] = useState({
+    businessName: '',
+    websiteUrl: '',
+    email: '',
+    phone: '',
+    industry: '',
+    challenge: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setErrorMessage('');
+
+    try {
+      const response = await fetch('/api/submit-form', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          formType: 'free-audit',
+          ...formData
+        })
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitStatus('success');
+        setFormData({
+          businessName: '',
+          websiteUrl: '',
+          email: '',
+          phone: '',
+          industry: '',
+          challenge: ''
+        });
+      } else {
+        setSubmitStatus('error');
+        setErrorMessage(result.error || 'Something went wrong. Please try again.');
+      }
+    } catch {
+      setSubmitStatus('error');
+      setErrorMessage('Network error. Please check your connection and try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
@@ -218,90 +279,189 @@ export default function FreeAuditClient({ pageData, siteSettings }: FreeAuditCli
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <div className="bg-white rounded-3xl p-8 shadow-2xl">
-                <h2 className="text-2xl font-bold text-[#1E293B] mb-6">
-                  {page.formTitle}
-                </h2>
-                <form className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Business Name *
-                    </label>
-                    <input 
-                      type="text"
-                      required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-[#F15924] focus:outline-none focus:ring-2 focus:ring-[#F15924]/20"
-                      placeholder="Your Business Name"
-                    />
+              <div className="relative">
+                {/* Decorative elements */}
+                <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-[#F15924] to-[#FF7A50] rounded-full blur-2xl opacity-50" />
+                <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-gradient-to-br from-[#2563EB] to-[#3B82F6] rounded-full blur-2xl opacity-30" />
+                
+                <div className="relative bg-white rounded-3xl p-8 shadow-2xl border border-gray-100 overflow-hidden">
+                  {/* Header badge */}
+                  <div className="absolute top-0 right-0 bg-gradient-to-r from-[#F15924] to-[#FF7A50] text-white text-xs font-bold px-4 py-2 rounded-bl-2xl flex items-center gap-1">
+                    <Gift size={14} /> LIMITED OFFER
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Website URL *
-                    </label>
-                    <input 
-                      type="url"
-                      required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-[#F15924] focus:outline-none focus:ring-2 focus:ring-[#F15924]/20"
-                      placeholder="https://yourwebsite.com"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Email Address *
-                    </label>
-                    <input 
-                      type="email"
-                      required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-[#F15924] focus:outline-none focus:ring-2 focus:ring-[#F15924]/20"
-                      placeholder="you@company.com"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Phone Number
-                    </label>
-                    <input 
-                      type="tel"
-                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-[#F15924] focus:outline-none focus:ring-2 focus:ring-[#F15924]/20"
-                      placeholder="+234 800 000 0000"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Industry *
-                    </label>
-                    <select 
-                      required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-[#F15924] focus:outline-none focus:ring-2 focus:ring-[#F15924]/20"
-                    >
-                      <option value="">Select your industry</option>
-                      {fallbackIndustries.map((industry) => (
-                        <option key={industry.value} value={industry.value}>
-                          {industry.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Main Marketing Challenge
-                    </label>
-                    <textarea 
-                      rows={3}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-[#F15924] focus:outline-none focus:ring-2 focus:ring-[#F15924]/20 resize-none"
-                      placeholder="What's your biggest digital marketing challenge?"
-                    />
-                  </div>
-                  <button 
-                    type="submit"
-                    className="w-full btn-primary flex items-center justify-center gap-2 text-lg py-4"
-                  >
-                    {page.formButtonText} <ArrowRight size={20} />
-                  </button>
-                  <p className="text-xs text-center text-gray-500">
-                    {page.formDisclaimer}
-                  </p>
-                </form>
+                  
+                  <AnimatePresence mode="wait">
+                    {submitStatus === 'success' ? (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        className="text-center py-12"
+                      >
+                        <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full mx-auto mb-6 flex items-center justify-center">
+                          <CheckCircle size={40} className="text-white" />
+                        </div>
+                        <h3 className="text-2xl font-bold text-[#1E293B] mb-4">Request Submitted!</h3>
+                        <p className="text-gray-600 mb-6">
+                          We&apos;ll analyze your digital presence and send your free audit report within 48 hours.
+                        </p>
+                        <button
+                          onClick={() => setSubmitStatus('idle')}
+                          className="text-[#F15924] font-semibold hover:underline"
+                        >
+                          Submit another request
+                        </button>
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                      >
+                        <div className="flex items-center gap-3 mb-6">
+                          <div className="w-12 h-12 bg-gradient-to-br from-[#F15924] to-[#FF7A50] rounded-xl flex items-center justify-center">
+                            <Sparkles size={24} className="text-white" />
+                          </div>
+                          <div>
+                            <h2 className="text-xl font-bold text-[#1E293B]">
+                              {page.formTitle}
+                            </h2>
+                            <p className="text-sm text-gray-500">Takes less than 2 minutes</p>
+                          </div>
+                        </div>
+                        
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div className="relative">
+                              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                Business Name *
+                              </label>
+                              <input 
+                                type="text"
+                                name="businessName"
+                                value={formData.businessName}
+                                onChange={handleInputChange}
+                                required
+                                className="w-full px-4 py-3.5 rounded-xl border-2 border-gray-200 bg-gray-50 focus:bg-white focus:border-[#F15924] focus:outline-none transition-all duration-200 placeholder:text-gray-400"
+                                placeholder="Your Business"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                Industry *
+                              </label>
+                              <select 
+                                name="industry"
+                                value={formData.industry}
+                                onChange={handleInputChange}
+                                required
+                                className="w-full px-4 py-3.5 rounded-xl border-2 border-gray-200 bg-gray-50 focus:bg-white focus:border-[#F15924] focus:outline-none transition-all duration-200"
+                              >
+                                <option value="">Select industry</option>
+                                {fallbackIndustries.map((industry) => (
+                                  <option key={industry.value} value={industry.value}>
+                                    {industry.label}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">
+                              Website URL *
+                            </label>
+                            <input 
+                              type="url"
+                              name="websiteUrl"
+                              value={formData.websiteUrl}
+                              onChange={handleInputChange}
+                              required
+                              className="w-full px-4 py-3.5 rounded-xl border-2 border-gray-200 bg-gray-50 focus:bg-white focus:border-[#F15924] focus:outline-none transition-all duration-200 placeholder:text-gray-400"
+                              placeholder="https://yourwebsite.com"
+                            />
+                          </div>
+                          
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                Email Address *
+                              </label>
+                              <input 
+                                type="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleInputChange}
+                                required
+                                className="w-full px-4 py-3.5 rounded-xl border-2 border-gray-200 bg-gray-50 focus:bg-white focus:border-[#F15924] focus:outline-none transition-all duration-200 placeholder:text-gray-400"
+                                placeholder="you@company.com"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                Phone Number
+                              </label>
+                              <input 
+                                type="tel"
+                                name="phone"
+                                value={formData.phone}
+                                onChange={handleInputChange}
+                                className="w-full px-4 py-3.5 rounded-xl border-2 border-gray-200 bg-gray-50 focus:bg-white focus:border-[#F15924] focus:outline-none transition-all duration-200 placeholder:text-gray-400"
+                                placeholder="+234 800 000 0000"
+                              />
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">
+                              Main Challenge (Optional)
+                            </label>
+                            <textarea 
+                              name="challenge"
+                              value={formData.challenge}
+                              onChange={handleInputChange}
+                              rows={2}
+                              className="w-full px-4 py-3.5 rounded-xl border-2 border-gray-200 bg-gray-50 focus:bg-white focus:border-[#F15924] focus:outline-none transition-all duration-200 placeholder:text-gray-400 resize-none"
+                              placeholder="What's your biggest digital challenge?"
+                            />
+                          </div>
+                          
+                          {submitStatus === 'error' && (
+                            <motion.div
+                              initial={{ opacity: 0, y: -10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm"
+                            >
+                              {errorMessage}
+                            </motion.div>
+                          )}
+                          
+                          <button 
+                            type="submit"
+                            disabled={isSubmitting}
+                            className="w-full bg-gradient-to-r from-[#F15924] to-[#FF7A50] hover:from-[#D94D1D] hover:to-[#F15924] text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-2 text-lg transition-all duration-300 shadow-lg shadow-[#F15924]/30 hover:shadow-xl hover:shadow-[#F15924]/40 disabled:opacity-70 disabled:cursor-not-allowed transform hover:-translate-y-0.5"
+                          >
+                            {isSubmitting ? (
+                              <>
+                                <Loader2 size={22} className="animate-spin" />
+                                Submitting...
+                              </>
+                            ) : (
+                              <>
+                                {page.formButtonText} <ArrowRight size={20} />
+                              </>
+                            )}
+                          </button>
+                          
+                          <p className="text-xs text-center text-gray-500 flex items-center justify-center gap-2">
+                            <CheckCircle size={14} className="text-green-500" />
+                            {page.formDisclaimer}
+                          </p>
+                        </form>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               </div>
             </motion.div>
           </div>
