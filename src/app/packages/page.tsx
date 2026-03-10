@@ -21,7 +21,7 @@ const staggerContainer = {
 const packages = [
   {
     name: 'Starter',
-    price: '₦350K',
+    price: '₦500K',
     period: 'one-time',
     icon: Zap,
     description: 'Perfect for small businesses and startups looking to establish their digital presence.',
@@ -46,7 +46,7 @@ const packages = [
   },
   {
     name: 'Growth',
-    price: '₦750K',
+    price: '₦1M',
     period: 'one-time',
     icon: Star,
     description: 'Ideal for growing businesses ready to scale their online presence and lead generation.',
@@ -71,7 +71,7 @@ const packages = [
   },
   {
     name: 'Professional',
-    price: '₦1.5M',
+    price: '₦2M',
     period: 'one-time',
     icon: Crown,
     description: 'Complete digital solution for businesses serious about dominating their market.',
