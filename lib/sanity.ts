@@ -164,6 +164,208 @@ export const queries = {
     role,
     bio
   }`,
+
+  // Site Settings
+  siteSettings: `*[_type == "siteSettings"][0] {
+    companyName,
+    tagline,
+    logo,
+    email,
+    supportEmail,
+    phone1,
+    phone2,
+    address,
+    businessHours,
+    socialLinks,
+    footerText
+  }`,
+
+  // Home Page
+  homePage: `*[_type == "homePage"][0] {
+    heroTitle,
+    heroHighlight,
+    heroSubtitle,
+    heroImage,
+    heroCta1Text,
+    heroCta1Link,
+    heroCta2Text,
+    heroCta2Link,
+    stats,
+    servicesTitle,
+    servicesSubtitle,
+    aboutTitle,
+    aboutContent,
+    aboutFeatures,
+    ctaTitle,
+    ctaSubtitle,
+    ctaButtonText,
+    ctaButtonLink
+  }`,
+
+  // Services Page
+  servicesPage: `*[_type == "servicesPage"][0] {
+    heroTitle,
+    heroHighlight,
+    heroSubtitle,
+    heroImage,
+    processTitle,
+    processSteps,
+    ctaTitle,
+    ctaSubtitle,
+    ctaButtonText,
+    ctaButtonLink
+  }`,
+
+  // AI Solutions Page
+  aiSolutionsPage: `*[_type == "aiSolutionsPage"][0] {
+    heroTitle,
+    heroHighlight,
+    heroSubtitle,
+    heroImage,
+    benefitsTitle,
+    benefitsSubtitle,
+    benefits,
+    ctaTitle,
+    ctaSubtitle,
+    ctaButtonText,
+    ctaButtonLink
+  }`,
+
+  // Industries Page
+  industriesPage: `*[_type == "industriesPage"][0] {
+    heroTitle,
+    heroHighlight,
+    heroSubtitle,
+    heroImage,
+    ctaTitle,
+    ctaSubtitle,
+    ctaButtonText,
+    ctaButtonLink
+  }`,
+
+  // Contact Page
+  contactPage: `*[_type == "contactPage"][0] {
+    heroTitle,
+    heroHighlight,
+    heroSubtitle,
+    heroImage,
+    formTitle,
+    formSubtitle,
+    mapEmbedUrl
+  }`,
+
+  // Free Audit Page
+  freeAuditPage: `*[_type == "freeAuditPage"][0] {
+    heroTitle,
+    heroHighlight,
+    heroSubtitle,
+    heroImage,
+    heroChecklist,
+    auditIncludes,
+    formTitle,
+    formSubtitle,
+    ctaTitle,
+    ctaSubtitle
+  }`,
+
+  // About Page
+  aboutPage: `*[_type == "aboutPage"][0] {
+    heroTitle,
+    heroHighlight,
+    heroSubtitle,
+    heroImage,
+    missionTitle,
+    missionContent,
+    visionTitle,
+    visionContent,
+    valuesTitle,
+    values,
+    stats,
+    teamTitle,
+    teamSubtitle,
+    ctaTitle,
+    ctaSubtitle,
+    ctaButtonText,
+    ctaButtonLink
+  }`,
+
+  // Insights Page
+  insightsPage: `*[_type == "insightsPage"][0] {
+    heroTitle,
+    heroHighlight,
+    heroSubtitle,
+    heroImage,
+    categories,
+    newsletterTitle,
+    newsletterSubtitle
+  }`,
+
+  // Portfolio Page
+  portfolioPage: `*[_type == "portfolioPage"][0] {
+    heroTitle,
+    heroHighlight,
+    heroSubtitle,
+    heroImage,
+    categories,
+    ctaTitle,
+    ctaSubtitle,
+    ctaButtonText,
+    ctaButtonLink
+  }`,
+
+  // Packages Page
+  packagesPage: `*[_type == "packagesPage"][0] {
+    heroTitle,
+    heroHighlight,
+    heroSubtitle,
+    heroImage,
+    comparisonTitle,
+    comparisonSubtitle,
+    faqTitle,
+    faqSubtitle,
+    ctaTitle,
+    ctaSubtitle,
+    ctaButtonText,
+    ctaButtonLink
+  }`,
+
+  // Industries
+  allIndustries: `*[_type == "industry"] | order(order asc) {
+    _id,
+    name,
+    slug,
+    icon,
+    description,
+    solutions,
+    stat,
+    image
+  }`,
+
+  // AI Solutions
+  allAiSolutions: `*[_type == "aiSolution"] | order(order asc) {
+    _id,
+    title,
+    slug,
+    icon,
+    shortDescription,
+    features,
+    benefits,
+    image
+  }`,
+
+  // FAQs
+  allFaqs: `*[_type == "faq"] | order(order asc) {
+    _id,
+    question,
+    answer,
+    category
+  }`,
+
+  faqsByCategory: `*[_type == "faq" && category == $category] | order(order asc) {
+    _id,
+    question,
+    answer
+  }`,
 };
 
 // Fetch functions
@@ -209,4 +411,67 @@ export async function getPackages() {
 
 export async function getCategories() {
   return client.fetch(queries.allCategories);
+}
+
+// Site Settings & Pages
+export async function getSiteSettings() {
+  return client.fetch(queries.siteSettings);
+}
+
+export async function getHomePage() {
+  return client.fetch(queries.homePage);
+}
+
+export async function getServicesPage() {
+  return client.fetch(queries.servicesPage);
+}
+
+export async function getAiSolutionsPage() {
+  return client.fetch(queries.aiSolutionsPage);
+}
+
+export async function getIndustriesPage() {
+  return client.fetch(queries.industriesPage);
+}
+
+export async function getContactPage() {
+  return client.fetch(queries.contactPage);
+}
+
+export async function getFreeAuditPage() {
+  return client.fetch(queries.freeAuditPage);
+}
+
+export async function getAboutPage() {
+  return client.fetch(queries.aboutPage);
+}
+
+export async function getInsightsPage() {
+  return client.fetch(queries.insightsPage);
+}
+
+export async function getPortfolioPage() {
+  return client.fetch(queries.portfolioPage);
+}
+
+export async function getPackagesPage() {
+  return client.fetch(queries.packagesPage);
+}
+
+// Industries & AI Solutions
+export async function getIndustries() {
+  return client.fetch(queries.allIndustries);
+}
+
+export async function getAiSolutions() {
+  return client.fetch(queries.allAiSolutions);
+}
+
+// FAQs
+export async function getFaqs() {
+  return client.fetch(queries.allFaqs);
+}
+
+export async function getFaqsByCategory(category: string) {
+  return client.fetch(queries.faqsByCategory, { category });
 }
