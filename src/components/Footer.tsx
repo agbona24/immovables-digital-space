@@ -9,7 +9,6 @@ import {
   MapPin, 
   Facebook, 
   Twitter, 
-  Linkedin, 
   Instagram,
   ArrowRight,
   ArrowUpRight,
@@ -17,7 +16,6 @@ import {
   Code,
   Megaphone,
   Palette,
-  Youtube,
   Send,
   Sparkles,
   Globe,
@@ -46,11 +44,9 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { icon: Facebook, href: '#', label: 'Facebook', color: '#1877F2' },
-  { icon: Twitter, href: '#', label: 'Twitter', color: '#1DA1F2' },
-  { icon: Linkedin, href: '#', label: 'LinkedIn', color: '#0A66C2' },
-  { icon: Instagram, href: '#', label: 'Instagram', color: '#E4405F' },
-  { icon: Youtube, href: '#', label: 'YouTube', color: '#FF0000' },
+  { icon: Instagram, href: 'https://www.instagram.com/immovables_tech', label: 'Instagram', color: '#E4405F' },
+  { icon: Facebook, href: 'https://www.facebook.com/share/1ANA4tiymV/', label: 'Facebook', color: '#1877F2' },
+  { icon: Twitter, href: 'https://x.com/immovablestech', label: 'X (Twitter)', color: '#000000' },
 ];
 
 export default function Footer() {

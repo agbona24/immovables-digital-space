@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useState } from 'react';
 import { ArrowRight, ExternalLink } from 'lucide-react';
-import { urlFor } from '../../../lib/sanity';
+import { urlFor } from '@/lib/sanity';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 40 },

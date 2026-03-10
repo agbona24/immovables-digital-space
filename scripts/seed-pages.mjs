@@ -34,10 +34,11 @@ async function seedAllContent() {
       'Sunday: Closed'
     ],
     socialLinks: {
-      instagram: 'https://instagram.com/immovablesdigital',
-      twitter: 'https://twitter.com/immovablestech',
-      linkedin: 'https://linkedin.com/company/immovables-digital-space',
-      facebook: 'https://facebook.com/immovablesdigital',
+      instagram: 'https://www.instagram.com/immovables_tech',
+      twitter: 'https://x.com/immovablestech',
+      facebook: 'https://www.facebook.com/share/1ANA4tiymV/',
+      tiktok: 'https://www.tiktok.com/@immovablestech',
+      threads: 'https://www.threads.com/@immovables_tech',
       whatsapp: '+2348132833083',
     },
     footerText: '© 2026 Immovables Digital Space. All rights reserved.',

@@ -19,7 +19,7 @@ import {
   Search,
   Code
 } from 'lucide-react';
-import { urlFor } from '../../../lib/sanity';
+import { urlFor } from '@/lib/sanity';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 40 },

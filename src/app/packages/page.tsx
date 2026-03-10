@@ -1,4 +1,4 @@
-import { getPackages } from '../../../lib/sanity';
+import { getPackages } from '@/lib/sanity';
 import PackagesClient from './PackagesClient';
 
 export const revalidate = 60;

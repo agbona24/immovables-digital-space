@@ -1,4 +1,4 @@
-import { getProjects } from '../../../lib/sanity';
+import { getProjects } from '@/lib/sanity';
 import PortfolioClient from './PortfolioClient';
 
 export const revalidate = 60;

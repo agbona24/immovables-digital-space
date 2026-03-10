@@ -1,4 +1,4 @@
-import { getTeamMembers } from '../../../lib/sanity';
+import { getTeamMembers } from '@/lib/sanity';
 import AboutClient from './AboutClient';
 
 export const revalidate = 60;

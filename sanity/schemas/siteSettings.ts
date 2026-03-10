@@ -61,8 +61,10 @@ export default defineType({
       fields: [
         { name: 'instagram', title: 'Instagram URL', type: 'url' },
         { name: 'twitter', title: 'Twitter/X URL', type: 'url' },
-        { name: 'linkedin', title: 'LinkedIn URL', type: 'url' },
         { name: 'facebook', title: 'Facebook URL', type: 'url' },
+        { name: 'tiktok', title: 'TikTok URL', type: 'url' },
+        { name: 'threads', title: 'Threads URL', type: 'url' },
+        { name: 'linkedin', title: 'LinkedIn URL', type: 'url' },
         { name: 'youtube', title: 'YouTube URL', type: 'url' },
         { name: 'whatsapp', title: 'WhatsApp Number', type: 'string' },
       ],
