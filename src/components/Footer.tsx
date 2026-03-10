@@ -341,8 +341,11 @@ export default function Footer() {
             {/* Quick Contact */}
             <div className="mt-8 p-4 bg-white/5 rounded-xl border border-white/10">
               <p className="text-sm text-gray-400 mb-2">Quick Contact</p>
-              <a href="tel:+2348132833083" className="text-white font-semibold hover:text-[#F15924] transition-colors">
+              <a href="tel:+2348132833083" className="text-white font-semibold hover:text-[#F15924] transition-colors block">
                 +234 813 283 3083
+              </a>
+              <a href="tel:+2348167145405" className="text-white font-semibold hover:text-[#F15924] transition-colors block mt-1">
+                +234 816 714 5405
               </a>
             </div>
           </motion.div>
@@ -358,8 +361,8 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { icon: MapPin, label: 'Address', value: '12 Obasanjo Way, Abeokuta, Nigeria' },
-              { icon: Phone, label: 'Phone', value: '+234 813 283 3083' },
-              { icon: Mail, label: 'Email', value: 'hello@immovablesdigital.com' }
+              { icon: Phone, label: 'Phone', value: '+234 813 283 3083 / +234 816 714 5405' },
+              { icon: Mail, label: 'Email', value: 'info@immovablestech.com' }
             ].map((item, index) => (
               <motion.div 
                 key={item.label}

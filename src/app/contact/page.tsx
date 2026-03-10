@@ -43,12 +43,12 @@ const contactInfo = [
   {
     icon: Phone,
     title: 'Phone',
-    details: ['+234 813 283 3083', '+234 800 IDS HELP']
+    details: ['+234 813 283 3083', '+234 816 714 5405']
   },
   {
     icon: Mail,
     title: 'Email',
-    details: ['hello@immovablesdigital.com', 'support@immovablesdigital.com']
+    details: ['info@immovablestech.com', 'support@immovablestech.com']
   },
   {
     icon: Clock,
@@ -398,13 +398,13 @@ export default function ContactPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a 
-                href="tel:+2348132833083"
+                href="tel:+2348167145405"
                 className="btn-primary flex items-center justify-center gap-2"
               >
                 <Phone size={20} /> Call Us Now
               </a>
               <a 
-                href="mailto:hello@immovablesdigital.com"
+                href="mailto:info@immovablestech.com"
                 className="btn-secondary flex items-center justify-center gap-2"
               >
                 <Mail size={20} /> Send Email

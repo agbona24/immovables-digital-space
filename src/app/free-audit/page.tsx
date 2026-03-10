@@ -367,10 +367,10 @@ export default function FreeAuditPage() {
               Reach out to us directly if you have any questions about the free audit.
             </p>
             <a 
-              href="mailto:hello@immovablesdigital.com"
+              href="mailto:info@immovablestech.com"
               className="inline-flex items-center gap-2 text-[#F15924] font-semibold text-lg hover:text-[#FF4924]"
             >
-              hello@immovablesdigital.com <ArrowRight size={20} />
+              info@immovablestech.com <ArrowRight size={20} />
             </a>
           </motion.div>
         </div>
