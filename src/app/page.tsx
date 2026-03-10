@@ -58,12 +58,16 @@ export default function Home() {
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
-      <section className="min-h-screen gradient-hero relative flex items-center overflow-hidden">
+      <section className="min-h-screen relative flex items-center overflow-hidden" style={{ backgroundImage: 'url(/hero1.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0A2540]/90 via-[#0A2540]/85 to-[#0F172A]/90" />
+        
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {/* Gradient Orbs */}
           <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-[#F15924]/20 rounded-full blur-[150px] animate-pulse" />
           <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#2563EB]/15 rounded-full blur-[150px] animate-pulse" style={{ animationDelay: '1s' }} />
+          <div className="absolute top-1/2 right-1/3 w-[300px] h-[300px] bg-[#10B981]/10 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '2s' }} />
           
           {/* Grid Pattern */}
           <div className="absolute inset-0 opacity-[0.03]" style={{
@@ -71,14 +75,32 @@ export default function Home() {
             backgroundSize: '50px 50px'
           }} />
 
-          {/* Animated SVG Lines */}
+          {/* Animated SVG Lines & Vectors */}
           <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="lineGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#F15924" stopOpacity="0.5" />
                 <stop offset="100%" stopColor="#2563EB" stopOpacity="0.5" />
               </linearGradient>
+              <linearGradient id="lineGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#F15924" stopOpacity="0" />
+                <stop offset="50%" stopColor="#F15924" stopOpacity="0.6" />
+                <stop offset="100%" stopColor="#F15924" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient id="lineGrad3" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#2563EB" stopOpacity="0" />
+                <stop offset="50%" stopColor="#2563EB" stopOpacity="0.5" />
+                <stop offset="100%" stopColor="#2563EB" stopOpacity="0" />
+              </linearGradient>
+              {/* Triangle Pattern */}
+              <pattern id="trianglePattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+                <polygon points="50,5 95,95 5,95" fill="none" stroke="#F15924" strokeWidth="0.5" opacity="0.1" />
+              </pattern>
             </defs>
+            
+            {/* Triangle Pattern Background */}
+            <rect width="100%" height="100%" fill="url(#trianglePattern)" opacity="0.3" />
+            
             {/* Animated circuit lines */}
             <path 
               d="M0,200 Q200,250 400,200 T800,200" 
@@ -97,20 +119,75 @@ export default function Home() {
               opacity="0.2"
               style={{ animationDelay: '0.5s' }}
             />
+            <path 
+              d="M0,600 Q400,650 800,600 T1600,600" 
+              stroke="url(#lineGrad2)" 
+              strokeWidth="1.5" 
+              fill="none" 
+              className="animate-dash"
+              opacity="0.25"
+              style={{ animationDelay: '1s' }}
+            />
+            
+            {/* Geometric Vectors */}
+            {/* Hexagon */}
+            <motion.polygon
+              points="100,30 130,50 130,90 100,110 70,90 70,50"
+              fill="none"
+              stroke="#F15924"
+              strokeWidth="1"
+              opacity="0.2"
+              initial={{ rotate: 0 }}
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+              style={{ transformOrigin: '100px 70px' }}
+            />
+            
+            {/* Diamond */}
+            <motion.polygon
+              points="1300,100 1350,150 1300,200 1250,150"
+              fill="none"
+              stroke="#2563EB"
+              strokeWidth="1"
+              opacity="0.15"
+              initial={{ scale: 1 }}
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 4, repeat: Infinity }}
+              style={{ transformOrigin: '1300px 150px' }}
+            />
+            
+            {/* Connecting nodes */}
+            <circle cx="200" cy="150" r="3" fill="#F15924" opacity="0.4">
+              <animate attributeName="r" values="3;5;3" dur="2s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="400" cy="350" r="3" fill="#2563EB" opacity="0.4">
+              <animate attributeName="r" values="3;5;3" dur="2.5s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="600" cy="200" r="3" fill="#F15924" opacity="0.4">
+              <animate attributeName="r" values="3;5;3" dur="3s" repeatCount="indefinite" />
+            </circle>
+            
+            {/* Connection lines between nodes */}
+            <line x1="200" y1="150" x2="400" y2="350" stroke="url(#lineGrad3)" strokeWidth="0.5" opacity="0.3" />
+            <line x1="400" y1="350" x2="600" y2="200" stroke="url(#lineGrad2)" strokeWidth="0.5" opacity="0.3" />
+            
+            {/* Data flow paths */}
+            <path d="M100,500 C200,450 300,550 400,500 S600,400 700,500" stroke="url(#lineGrad2)" strokeWidth="1" fill="none" opacity="0.2" className="animate-dash" />
           </svg>
 
           {/* Floating Particles */}
-          {[...Array(6)].map((_, i) => (
+          {[...Array(8)].map((_, i) => (
             <motion.div
               key={i}
               className="absolute w-2 h-2 bg-[#F15924] rounded-full"
               style={{
-                left: `${15 + i * 15}%`,
-                top: `${20 + (i % 3) * 25}%`,
+                left: `${10 + i * 12}%`,
+                top: `${15 + (i % 4) * 20}%`,
               }}
               animate={{
-                y: [0, -30, 0],
-                opacity: [0.3, 0.8, 0.3],
+                y: [0, -40, 0],
+                opacity: [0.2, 0.8, 0.2],
+                scale: [1, 1.2, 1],
               }}
               transition={{
                 duration: 3 + i * 0.5,
@@ -119,11 +196,62 @@ export default function Home() {
               }}
             />
           ))}
+          
+          {/* Blue Floating Particles */}
+          {[...Array(5)].map((_, i) => (
+            <motion.div
+              key={`blue-${i}`}
+              className="absolute w-1.5 h-1.5 bg-[#2563EB] rounded-full"
+              style={{
+                right: `${10 + i * 15}%`,
+                top: `${25 + (i % 3) * 25}%`,
+              }}
+              animate={{
+                y: [0, -30, 0],
+                x: [0, 10, 0],
+                opacity: [0.3, 0.7, 0.3],
+              }}
+              transition={{
+                duration: 4 + i * 0.3,
+                repeat: Infinity,
+                delay: i * 0.5,
+              }}
+            />
+          ))}
 
           {/* Rotating Rings */}
           <div className="absolute top-20 right-20 w-32 h-32 border border-[#F15924]/20 rounded-full spin-slow" />
           <div className="absolute top-32 right-32 w-20 h-20 border border-[#2563EB]/20 rounded-full spin-slow-reverse" />
           <div className="absolute bottom-40 left-20 w-24 h-24 border border-white/10 rounded-full spin-slow" />
+          <div className="absolute top-40 left-40 w-16 h-16 border border-[#F15924]/15 rounded-full spin-slow-reverse" />
+          
+          {/* Geometric Shapes */}
+          <motion.div
+            className="absolute top-1/3 right-1/4 w-20 h-20 border border-[#F15924]/20"
+            style={{ transform: 'rotate(45deg)' }}
+            animate={{ rotate: [45, 405] }}
+            transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+          />
+          <motion.div
+            className="absolute bottom-1/3 left-1/6 w-12 h-12 border border-[#2563EB]/15"
+            animate={{ 
+              rotate: [0, 360],
+              scale: [1, 1.1, 1]
+            }}
+            transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+          />
+          
+          {/* Dotted Circle Vectors */}
+          <svg className="absolute top-1/4 left-1/3 w-40 h-40" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="none" stroke="#F15924" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.2">
+              <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="30s" repeatCount="indefinite" />
+            </circle>
+          </svg>
+          <svg className="absolute bottom-1/4 right-1/3 w-32 h-32" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="#2563EB" strokeWidth="0.5" strokeDasharray="2 6" opacity="0.15">
+              <animateTransform attributeName="transform" type="rotate" from="360 50 50" to="0 50 50" dur="25s" repeatCount="indefinite" />
+            </circle>
+          </svg>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 relative z-10">
@@ -139,41 +267,99 @@ export default function Home() {
               </div>
               
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                Build Powerful Digital Systems That{' '}
-                <span className="text-[#F15924]">Attract Clients</span> and{' '}
-                <span className="text-white">Scale Your Business</span>
+                <span className="block">Build Powerful</span>
+                <span className="block">Digital Systems That</span>
+                <span className="block overflow-hidden">
+                  <motion.span
+                    className="inline-block text-[#F15924]"
+                    initial={{ y: 100, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.8, delay: 0.5 }}
+                  >
+                    Attract Clients
+                  </motion.span>
+                </span>
+                <span className="block overflow-hidden">
+                  <motion.span
+                    className="inline-block"
+                    initial={{ y: 100, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.8, delay: 0.8 }}
+                  >
+                    and{' '}
+                    <motion.span
+                      className="relative inline-block"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 1.2 }}
+                    >
+                      <span className="relative z-10">Scale Your Business</span>
+                      <motion.span
+                        className="absolute bottom-2 left-0 h-3 bg-[#F15924]/30 -z-0"
+                        initial={{ width: 0 }}
+                        animate={{ width: '100%' }}
+                        transition={{ duration: 0.8, delay: 1.5 }}
+                      />
+                    </motion.span>
+                  </motion.span>
+                </span>
               </h1>
               
-              <p className="text-xl text-slate-300 mb-8 max-w-xl leading-relaxed">
+              <motion.p 
+                className="text-xl text-slate-300 mb-8 max-w-xl leading-relaxed"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 1.8 }}
+              >
                 Immovables Digital Space builds digital infrastructure for modern businesses 
                 through intelligent marketing systems, AI automation, websites, branding, 
                 and business technology solutions.
-              </p>
+              </motion.p>
               
-              <div className="flex flex-col sm:flex-row gap-4">
+              <motion.div 
+                className="flex flex-col sm:flex-row gap-4"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 2 }}
+              >
                 <Link href="/free-audit" className="btn-primary flex items-center justify-center gap-2">
                   Request Free Digital Audit <ArrowRight size={18} />
                 </Link>
                 <Link href="/contact" className="btn-secondary flex items-center justify-center gap-2">
                   Book a Consultation
                 </Link>
-              </div>
+              </motion.div>
 
               {/* Stats */}
-              <div className="grid grid-cols-3 gap-8 mt-12 pt-8 border-t border-white/20">
-                <div>
-                  <p className="text-3xl font-bold text-[#F15924]">150+</p>
-                  <p className="text-sm text-slate-300">Projects Delivered</p>
-                </div>
-                <div>
-                  <p className="text-3xl font-bold text-[#F15924]">98%</p>
-                  <p className="text-sm text-slate-300">Client Satisfaction</p>
-                </div>
-                <div>
-                  <p className="text-3xl font-bold text-[#F15924]">5+</p>
-                  <p className="text-sm text-slate-300">Years Experience</p>
-                </div>
-              </div>
+              <motion.div 
+                className="grid grid-cols-3 gap-8 mt-12 pt-8 border-t border-white/20"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 2.2 }}
+              >
+                {[
+                  { value: '150+', label: 'Projects Delivered' },
+                  { value: '98%', label: 'Client Satisfaction' },
+                  { value: '5+', label: 'Years Experience' }
+                ].map((stat, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 2.3 + index * 0.1 }}
+                  >
+                    <motion.p 
+                      className="text-3xl font-bold text-[#F15924]"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: 'spring', delay: 2.5 + index * 0.1 }}
+                    >
+                      {stat.value}
+                    </motion.p>
+                    <p className="text-sm text-slate-300">{stat.label}</p>
+                  </motion.div>
+                ))}
+              </motion.div>
             </motion.div>
 
             {/* Hero Visual - Animated Service Vectors */}
@@ -597,7 +783,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Section 4: Core Solutions - Premium Card Grid */}
+      {/* Section 4: Core Solutions - Premium Card Grid with Animated Widgets */}
       <section className="py-32 bg-white relative overflow-hidden">
         {/* Decorative elements */}
         <div className="absolute top-20 right-0 w-96 h-96 bg-[#F15924]/5 rounded-full blur-[100px]" />
@@ -631,8 +817,9 @@ export default function Home() {
             </motion.p>
           </div>
 
-          {/* Premium Services Grid */}
+          {/* Premium Services Grid with Animated Widgets */}
           <div className="grid grid-cols-12 gap-6">
+            
             {/* Featured Large Card - Website Development */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
@@ -658,60 +845,206 @@ export default function Home() {
                   </Link>
                 </div>
                 
-                {/* Mini Preview */}
-                <div className="lg:w-64 bg-[#0F1D32] rounded-2xl p-4 border border-white/10">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="w-2 h-2 rounded-full bg-red-400" />
-                    <div className="w-2 h-2 rounded-full bg-yellow-400" />
-                    <div className="w-2 h-2 rounded-full bg-green-400" />
+                {/* Animated Website Builder Widget */}
+                <div className="lg:w-72 bg-[#0F1D32] rounded-2xl p-4 border border-white/10 relative overflow-hidden">
+                  {/* Browser Header */}
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
+                    </div>
+                    <div className="flex-1 mx-3 h-5 bg-white/5 rounded-full flex items-center px-2">
+                      <span className="text-[8px] text-gray-500">yourwebsite.com</span>
+                    </div>
                   </div>
-                  <div className="space-y-2">
-                    <div className="h-3 bg-white/10 rounded w-3/4" />
-                    <div className="h-3 bg-white/5 rounded w-full" />
-                    <div className="h-3 bg-white/5 rounded w-2/3" />
-                    <div className="h-16 bg-gradient-to-r from-[#F15924]/30 to-[#F15924]/10 rounded mt-4" />
+                  
+                  {/* Animated Code Lines */}
+                  <div className="space-y-1.5 mb-3">
+                    <motion.div 
+                      className="flex items-center gap-2"
+                      initial={{ width: 0 }}
+                      whileInView={{ width: '100%' }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8, delay: 0.2 }}
+                    >
+                      <span className="text-[10px] text-purple-400">&lt;div</span>
+                      <span className="text-[10px] text-blue-400">class=</span>
+                      <span className="text-[10px] text-green-400">&quot;hero&quot;</span>
+                      <span className="text-[10px] text-purple-400">&gt;</span>
+                    </motion.div>
+                    <motion.div 
+                      className="flex items-center gap-2 pl-3"
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: 0.5 }}
+                    >
+                      <span className="text-[10px] text-purple-400">&lt;h1&gt;</span>
+                      <span className="text-[10px] text-white">Welcome</span>
+                      <span className="text-[10px] text-purple-400">&lt;/h1&gt;</span>
+                    </motion.div>
+                    <motion.div 
+                      className="flex items-center gap-2 pl-3"
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: 0.8 }}
+                    >
+                      <span className="text-[10px] text-purple-400">&lt;button&gt;</span>
+                      <span className="text-[10px] text-white">Get Started</span>
+                      <span className="text-[10px] text-purple-400">&lt;/button&gt;</span>
+                    </motion.div>
                   </div>
+
+                  {/* Live Preview */}
+                  <div className="bg-[#1a2744] rounded-lg p-3 border border-white/5">
+                    <motion.div 
+                      className="h-2 bg-white/20 rounded w-16 mb-2"
+                      animate={{ opacity: [0.5, 1, 0.5] }}
+                      transition={{ repeat: Infinity, duration: 2 }}
+                    />
+                    <motion.div 
+                      className="h-6 bg-gradient-to-r from-[#F15924] to-[#FF6B35] rounded w-20 flex items-center justify-center"
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      <span className="text-[8px] text-white font-medium">Get Started</span>
+                    </motion.div>
+                  </div>
+
+                  {/* Animated Cursor */}
+                  <motion.div
+                    className="absolute w-3 h-3"
+                    animate={{ 
+                      x: [100, 140, 120, 100],
+                      y: [80, 100, 120, 80]
+                    }}
+                    transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                  >
+                    <svg viewBox="0 0 24 24" fill="white" className="w-3 h-3 drop-shadow-lg">
+                      <path d="M4 4l16 8-8 2-2 8z" />
+                    </svg>
+                  </motion.div>
                 </div>
               </div>
             </motion.div>
 
-            {/* Digital Marketing */}
+            {/* AI Automation - Large Card with Chat Widget */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
+              className="col-span-12 md:col-span-6 lg:col-span-4 bg-gradient-to-br from-[#F15924] to-[#FF6B35] rounded-[2rem] p-8 relative overflow-hidden group"
+            >
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl" />
+              
+              <div className="relative z-10">
+                <div className="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center mb-6">
+                  <Bot size={26} className="text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">AI Automation</h3>
+                <p className="text-white/80 text-sm mb-6">Intelligent systems that work 24/7 to engage customers and qualify leads.</p>
+                
+                {/* Live AI Chat Widget */}
+                <div className="bg-white/10 backdrop-blur rounded-xl p-3 border border-white/20">
+                  <div className="flex items-center gap-2 mb-3 pb-2 border-b border-white/10">
+                    <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center">
+                      <Bot size={12} className="text-[#F15924]" />
+                    </div>
+                    <span className="text-xs text-white font-medium">AI Sales Bot</span>
+                    <span className="ml-auto flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
+                      <span className="text-[10px] text-green-300">Live</span>
+                    </span>
+                  </div>
+                  
+                  {/* Chat Messages */}
+                  <div className="space-y-2">
+                    <motion.div 
+                      className="bg-white rounded-lg rounded-tl-none p-2 max-w-[85%]"
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.3 }}
+                    >
+                      <p className="text-[10px] text-gray-700">Hi! How can I help you today? 👋</p>
+                    </motion.div>
+                    <motion.div 
+                      className="bg-white/20 rounded-lg rounded-tr-none p-2 max-w-[85%] ml-auto"
+                      initial={{ opacity: 0, x: 10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.6 }}
+                    >
+                      <p className="text-[10px] text-white">I need pricing info</p>
+                    </motion.div>
+                    <motion.div 
+                      className="bg-white rounded-lg rounded-tl-none p-2 max-w-[85%]"
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.9 }}
+                    >
+                      <p className="text-[10px] text-gray-700">Sure! Let me share our packages...</p>
+                      <motion.span 
+                        className="inline-block w-1 h-3 bg-[#F15924] ml-1"
+                        animate={{ opacity: [1, 0] }}
+                        transition={{ repeat: Infinity, duration: 0.8 }}
+                      />
+                    </motion.div>
+                  </div>
+                </div>
+
+                <Link href="/ai-solutions" className="inline-flex items-center gap-2 text-white font-semibold text-sm mt-6">
+                  Explore AI <ArrowRight size={16} />
+                </Link>
+              </div>
+            </motion.div>
+
+            {/* Digital Marketing with Analytics Widget */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
               className="col-span-12 md:col-span-6 lg:col-span-4 bg-[#FAFBFC] rounded-[2rem] p-8 border border-gray-100 hover:border-[#2563EB]/30 hover:shadow-[0_20px_60px_-15px_rgba(37,99,235,0.15)] transition-all duration-500 group"
             >
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#2563EB] to-[#3B82F6] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
                 <TrendingUp size={26} className="text-white" />
               </div>
               <h3 className="text-xl font-bold text-[#0A2540] mb-3">Digital Marketing</h3>
-              <p className="text-gray-500 mb-6">Data-driven marketing strategies that maximize ROI and drive sustainable growth.</p>
-              <Link href="/services" className="inline-flex items-center gap-2 text-[#2563EB] font-semibold text-sm">
-                Learn More <ArrowRight size={16} />
-              </Link>
-            </motion.div>
-
-            {/* Branding */}
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="col-span-12 md:col-span-6 lg:col-span-4 bg-[#FAFBFC] rounded-[2rem] p-8 border border-gray-100 hover:border-[#F15924]/30 hover:shadow-[0_20px_60px_-15px_rgba(241,89,36,0.15)] transition-all duration-500 group"
-            >
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#F15924] to-[#FF6B35] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
-                <Palette size={26} className="text-white" />
+              <p className="text-gray-500 text-sm mb-4">Data-driven strategies that maximize ROI.</p>
+              
+              {/* Live Analytics Widget */}
+              <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs text-gray-500">Campaign Performance</span>
+                  <span className="text-xs text-green-500 font-medium">+127%</span>
+                </div>
+                <div className="flex items-end gap-1 h-16">
+                  {[30, 45, 35, 60, 50, 75, 65, 85, 70, 90, 80, 95].map((h, i) => (
+                    <motion.div 
+                      key={i}
+                      className="flex-1 bg-gradient-to-t from-[#2563EB] to-[#60A5FA] rounded-t"
+                      initial={{ height: 0 }}
+                      whileInView={{ height: `${h}%` }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.1 * i, duration: 0.4 }}
+                    />
+                  ))}
+                </div>
+                <div className="flex justify-between mt-2 text-[10px] text-gray-400">
+                  <span>Jan</span><span>Jun</span><span>Dec</span>
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-[#0A2540] mb-3">Branding & Identity</h3>
-              <p className="text-gray-500 mb-6">Distinctive brand identities that resonate with your target audience and drive recognition.</p>
-              <Link href="/services" className="inline-flex items-center gap-2 text-[#F15924] font-semibold text-sm">
+              
+              <Link href="/services" className="inline-flex items-center gap-2 text-[#2563EB] font-semibold text-sm mt-4">
                 Learn More <ArrowRight size={16} />
               </Link>
             </motion.div>
 
-            {/* AI Automation */}
+            {/* Branding with Design Widget */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -720,16 +1053,60 @@ export default function Home() {
               className="col-span-12 md:col-span-6 lg:col-span-4 bg-[#FAFBFC] rounded-[2rem] p-8 border border-gray-100 hover:border-[#F15924]/30 hover:shadow-[0_20px_60px_-15px_rgba(241,89,36,0.15)] transition-all duration-500 group"
             >
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#F15924] to-[#FF6B35] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
-                <Bot size={26} className="text-white" />
+                <Palette size={26} className="text-white" />
               </div>
-              <h3 className="text-xl font-bold text-[#0A2540] mb-3">AI Automation</h3>
-              <p className="text-gray-500 mb-6">Intelligent automation systems that streamline operations and reduce operational costs.</p>
-              <Link href="/ai-solutions" className="inline-flex items-center gap-2 text-[#F15924] font-semibold text-sm">
+              <h3 className="text-xl font-bold text-[#0A2540] mb-3">Branding & Identity</h3>
+              <p className="text-gray-500 text-sm mb-4">Distinctive brands that resonate.</p>
+              
+              {/* Brand Design Widget */}
+              <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+                {/* Color Palette */}
+                <div className="flex gap-2 mb-3">
+                  {['#F15924', '#0A2540', '#2563EB', '#10B981', '#F59E0B'].map((color, i) => (
+                    <motion.div
+                      key={i}
+                      className="flex-1 h-8 rounded-lg cursor-pointer"
+                      style={{ backgroundColor: color }}
+                      whileHover={{ scale: 1.1, y: -4 }}
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.1 * i }}
+                    />
+                  ))}
+                </div>
+                {/* Typography Preview */}
+                <div className="space-y-1">
+                  <motion.div 
+                    className="h-2 bg-[#0A2540] rounded w-20"
+                    initial={{ width: 0 }}
+                    whileInView={{ width: 80 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.5 }}
+                  />
+                  <motion.div 
+                    className="h-1.5 bg-gray-300 rounded w-full"
+                    initial={{ width: 0 }}
+                    whileInView={{ width: '100%' }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.6 }}
+                  />
+                  <motion.div 
+                    className="h-1.5 bg-gray-200 rounded w-3/4"
+                    initial={{ width: 0 }}
+                    whileInView={{ width: '75%' }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.7 }}
+                  />
+                </div>
+              </div>
+              
+              <Link href="/services" className="inline-flex items-center gap-2 text-[#F15924] font-semibold text-sm mt-4">
                 Learn More <ArrowRight size={16} />
               </Link>
             </motion.div>
 
-            {/* SEO */}
+            {/* SEO with Rankings Widget */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -741,8 +1118,40 @@ export default function Home() {
                 <Search size={26} className="text-white" />
               </div>
               <h3 className="text-xl font-bold text-[#0A2540] mb-3">SEO & Visibility</h3>
-              <p className="text-gray-500 mb-6">Dominate search results and establish your digital presence in your market.</p>
-              <Link href="/services" className="inline-flex items-center gap-2 text-[#2563EB] font-semibold text-sm">
+              <p className="text-gray-500 text-sm mb-4">Dominate search results in your market.</p>
+              
+              {/* SEO Rankings Widget */}
+              <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+                <div className="flex items-center gap-2 mb-3 pb-2 border-b border-gray-100">
+                  <Search size={12} className="text-gray-400" />
+                  <span className="text-[10px] text-gray-500">your business keywords</span>
+                </div>
+                {/* Ranking Items */}
+                <div className="space-y-2">
+                  {[
+                    { rank: 1, keyword: 'digital agency nigeria', change: '+5' },
+                    { rank: 2, keyword: 'web development lagos', change: '+3' },
+                    { rank: 1, keyword: 'ai automation africa', change: '+8' },
+                  ].map((item, i) => (
+                    <motion.div 
+                      key={i}
+                      className="flex items-center gap-2"
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.2 * i }}
+                    >
+                      <span className={`w-5 h-5 rounded flex items-center justify-center text-[10px] font-bold ${item.rank === 1 ? 'bg-[#F15924] text-white' : 'bg-gray-100 text-gray-600'}`}>
+                        {item.rank}
+                      </span>
+                      <span className="text-[10px] text-gray-600 flex-1 truncate">{item.keyword}</span>
+                      <span className="text-[10px] text-green-500 font-medium">{item.change}</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+              
+              <Link href="/services" className="inline-flex items-center gap-2 text-[#2563EB] font-semibold text-sm mt-4">
                 Learn More <ArrowRight size={16} />
               </Link>
             </motion.div>
@@ -1023,27 +1432,38 @@ export default function Home() {
           >
             {[
               {
-                title: 'TechVentures Platform',
-                category: 'Web Development',
-                image: 'bg-gradient-to-br from-[#F15924] to-[#FF4924]'
+                title: 'Affordable Gadgets',
+                category: 'E-commerce Website',
+                image: '/portfolio/affordable.png',
+                url: 'https://www.affordablegadgets.ng/'
               },
               {
-                title: 'EstateFlow CRM',
-                category: 'Business Software',
-                image: 'bg-gradient-to-br from-[#2563EB] to-[#60a5fa]'
+                title: 'Cascadia Holdings',
+                category: 'Corporate Website',
+                image: '/portfolio/cascadia.png',
+                url: 'https://www.cascadiaholdings.net/'
               },
               {
-                title: 'EduSmart System',
-                category: 'AI Automation',
-                image: 'bg-gradient-to-br from-[#0A2540] to-[#0F172A]'
+                title: 'MPS Solar',
+                category: 'Energy Solutions Website',
+                image: '/portfolio/mpssolar.png',
+                url: 'https://mps.solar/'
               }
             ].map((project, index) => (
-              <motion.div
+              <motion.a
                 key={index}
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 variants={fadeInUp}
-                className="group cursor-pointer"
+                className="group cursor-pointer block"
               >
-                <div className={`${project.image} aspect-[4/3] rounded-2xl mb-4 overflow-hidden relative`}>
+                <div className="aspect-[4/3] rounded-2xl mb-4 overflow-hidden relative bg-gray-100">
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center">
                     <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity font-semibold">
                       View Project
@@ -1054,7 +1474,7 @@ export default function Home() {
                 <h3 className="text-xl font-bold text-[#1E293B] group-hover:text-[#F15924] transition-colors">
                   {project.title}
                 </h3>
-              </motion.div>
+              </motion.a>
             ))}
           </motion.div>
         </div>

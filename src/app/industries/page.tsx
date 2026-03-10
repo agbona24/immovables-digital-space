@@ -133,7 +133,8 @@ export default function IndustriesPage() {
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
-      <section className="gradient-hero grid-pattern relative py-32">
+      <section className="relative py-32" style={{ backgroundImage: 'url(/hero2.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0A2540]/90 via-[#0A2540]/85 to-[#0F172A]/90" />
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#F15924]/20 rounded-full blur-3xl pulse-glow" />
         </div>
@@ -159,8 +160,9 @@ export default function IndustriesPage() {
       </section>
 
       {/* Industry Grid */}
-      <section className="py-24 bg-[#F8FAFC]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 relative" style={{ backgroundImage: 'url(/hero1.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0A2540]/97 to-[#0F172A]/97" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial="initial"
             whileInView="animate"
@@ -173,12 +175,13 @@ export default function IndustriesPage() {
                 key={index}
                 href={`#${industry.name.toLowerCase().replace(' ', '-')}`}
                 variants={fadeInUp}
-                className="bg-white rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-shadow card-hover group"
+                whileHover={{ y: -5, scale: 1.02 }}
+                className="bg-white/10 backdrop-blur border border-white/20 rounded-xl p-6 text-center hover:bg-white/20 transition-all group"
               >
-                <div className="w-12 h-12 rounded-lg bg-[#F15924]/10 group-hover:bg-[#F15924] mx-auto flex items-center justify-center mb-3 transition-colors">
+                <div className="w-12 h-12 rounded-lg bg-[#F15924]/20 group-hover:bg-[#F15924] mx-auto flex items-center justify-center mb-3 transition-colors">
                   <industry.icon size={24} className="text-[#F15924] group-hover:text-white transition-colors" />
                 </div>
-                <p className="text-sm font-semibold text-[#1E293B]">{industry.name}</p>
+                <p className="text-sm font-semibold text-white">{industry.name}</p>
               </motion.a>
             ))}
           </motion.div>
@@ -186,13 +189,21 @@ export default function IndustriesPage() {
       </section>
 
       {/* Industry Details */}
-      {industries.map((industry, index) => (
+      {industries.map((industry, index) => {
+        const isDark = index === 0 || index === 2 || index === 4 || index === 6;
+        return (
         <section 
           key={industry.name}
           id={industry.name.toLowerCase().replace(' ', '-')}
-          className={`py-24 ${index % 2 === 0 ? 'bg-white' : 'bg-[#F8FAFC]'}`}
+          className={`py-24 relative overflow-hidden ${isDark ? 'bg-[#0A2540]' : 'bg-gradient-to-br from-[#FAFBFC] to-white'}`}
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {isDark && (
+            <div className="absolute top-0 right-0 w-96 h-96 bg-[#F15924]/10 rounded-full blur-[100px]" />
+          )}
+          {!isDark && (
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#2563EB]/5 rounded-full blur-[100px]" />
+          )}
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className={`grid lg:grid-cols-2 gap-16 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
               <motion.div
                 initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
@@ -201,24 +212,35 @@ export default function IndustriesPage() {
                 transition={{ duration: 0.6 }}
                 className={index % 2 === 1 ? 'lg:order-2' : ''}
               >
-                <div className="w-16 h-16 rounded-2xl gradient-orange flex items-center justify-center mb-6">
+                <motion.div 
+                  whileHover={{ scale: 1.05, rotate: 5 }}
+                  transition={{ duration: 0.3 }}
+                  className="w-16 h-16 rounded-2xl gradient-orange flex items-center justify-center mb-6"
+                >
                   <industry.icon size={32} className="text-white" />
-                </div>
-                <h2 className="text-3xl md:text-4xl font-bold text-[#1E293B] mb-4">
+                </motion.div>
+                <h2 className={`text-3xl md:text-4xl font-bold ${isDark ? 'text-white' : 'text-[#1E293B]'} mb-4`}>
                   {industry.name}
                 </h2>
-                <p className="text-lg text-gray-600 mb-6">
+                <p className={`text-lg ${isDark ? 'text-gray-300' : 'text-gray-600'} mb-6`}>
                   {industry.description}
                 </p>
                 
                 <div className="mb-8">
-                  <h4 className="font-bold text-[#1E293B] mb-4">Solutions We Provide:</h4>
+                  <h4 className={`font-bold ${isDark ? 'text-white' : 'text-[#1E293B]'} mb-4`}>Solutions We Provide:</h4>
                   <div className="grid grid-cols-2 gap-3">
                     {industry.solutions.map((solution, i) => (
-                      <div key={i} className="flex items-center gap-2">
-                        <CheckCircle size={16} className="text-[#F15924]" />
-                        <span className="text-gray-600 text-sm">{solution}</span>
-                      </div>
+                      <motion.div 
+                        key={i} 
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.1 }}
+                        className="flex items-center gap-2"
+                      >
+                        <CheckCircle size={16} className="text-[#F15924] flex-shrink-0" />
+                        <span className={`${isDark ? 'text-gray-300' : 'text-gray-600'} text-sm`}>{solution}</span>
+                      </motion.div>
                     ))}
                   </div>
                 </div>
@@ -238,12 +260,16 @@ export default function IndustriesPage() {
                 transition={{ duration: 0.6 }}
                 className={`${index % 2 === 1 ? 'lg:order-1' : ''}`}
               >
-                <div className="bg-gradient-to-br from-[#0A2540] to-[#0F172A] rounded-3xl p-10 relative overflow-hidden">
+                <div className={`${isDark ? 'bg-white/5 backdrop-blur border border-white/10' : 'bg-gradient-to-br from-[#0A2540] to-[#0F172A]'} rounded-3xl p-10 relative overflow-hidden`}>
                   <div className="absolute top-0 right-0 w-40 h-40 bg-[#F15924]/10 rounded-full blur-3xl" />
                   <div className="relative z-10 text-center">
-                    <div className="w-24 h-24 rounded-3xl gradient-orange mx-auto flex items-center justify-center mb-8">
+                    <motion.div 
+                      whileHover={{ scale: 1.1, rotate: 360 }}
+                      transition={{ duration: 0.5 }}
+                      className="w-24 h-24 rounded-3xl gradient-orange mx-auto flex items-center justify-center mb-8"
+                    >
                       <industry.icon size={48} className="text-white" />
-                    </div>
+                    </motion.div>
                     <p className="text-white text-lg font-medium mb-2">Results That Matter</p>
                     <p className="text-[#F15924] text-xl font-bold">{industry.stats}</p>
                   </div>
@@ -252,10 +278,15 @@ export default function IndustriesPage() {
             </div>
           </div>
         </section>
-      ))}
+        );
+      })}
 
       {/* CTA Section */}
-      <section className="py-24 gradient-hero grid-pattern relative">
+      <section className="py-24 relative" style={{ backgroundImage: 'url(/hero2.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0A2540]/95 to-[#0F172A]/95" />
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#F15924]/20 rounded-full blur-[100px]" />
+        </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 40 }}

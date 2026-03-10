@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown } from 'lucide-react';
 
@@ -40,9 +41,13 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 rounded-lg gradient-orange flex items-center justify-center">
-              <span className="text-white font-bold text-xl">IDS</span>
-            </div>
+            <Image 
+              src="/logo.png" 
+              alt="IDS Logo" 
+              width={50} 
+              height={50}
+              className="h-12 w-auto"
+            />
             <div className="hidden sm:block">
               <span className="text-white font-bold text-lg">IMMOVABLES</span>
               <span className="text-[#F15924] font-light text-sm block -mt-1">DIGITAL SPACE</span>

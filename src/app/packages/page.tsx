@@ -132,7 +132,8 @@ export default function PackagesPage() {
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
-      <section className="gradient-hero grid-pattern relative py-32">
+      <section className="relative py-32" style={{ backgroundImage: 'url(/hero2.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0A2540]/90 via-[#0A2540]/85 to-[#0F172A]/90" />
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#F15924]/20 rounded-full blur-3xl pulse-glow" />
         </div>
@@ -158,8 +159,10 @@ export default function PackagesPage() {
       </section>
 
       {/* Packages */}
-      <section className="py-24 bg-[#F8FAFC]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 bg-gradient-to-br from-[#FAFBFC] to-white relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#F15924]/5 rounded-full blur-[100px]" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#2563EB]/5 rounded-full blur-[100px]" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial="initial"
             whileInView="animate"
@@ -233,8 +236,9 @@ export default function PackagesPage() {
       </section>
 
       {/* Add-Ons */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 relative" style={{ backgroundImage: 'url(/hero1.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0A2540]/97 to-[#0F172A]/97" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial="initial"
             whileInView="animate"
@@ -250,13 +254,13 @@ export default function PackagesPage() {
             </motion.span>
             <motion.h2 
               variants={fadeInUp}
-              className="text-3xl md:text-4xl font-bold text-[#1E293B] mb-6"
+              className="text-3xl md:text-4xl font-bold text-white mb-6"
             >
               Enhance Your Package
             </motion.h2>
             <motion.p 
               variants={fadeInUp}
-              className="text-lg text-gray-600"
+              className="text-lg text-gray-300"
             >
               Add extra features and services to customize your package.
             </motion.p>
@@ -273,9 +277,10 @@ export default function PackagesPage() {
               <motion.div
                 key={index}
                 variants={fadeInUp}
-                className="flex items-center justify-between bg-[#F8FAFC] rounded-xl p-6"
+                whileHover={{ y: -5, scale: 1.02 }}
+                className="flex items-center justify-between bg-white/10 backdrop-blur border border-white/20 rounded-xl p-6 hover:bg-white/15 transition-all"
               >
-                <span className="font-medium text-[#1E293B]">{addon.name}</span>
+                <span className="font-medium text-white">{addon.name}</span>
                 <span className="font-bold text-[#F15924]">{addon.price}</span>
               </motion.div>
             ))}
@@ -284,8 +289,9 @@ export default function PackagesPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-24 bg-[#F8FAFC]">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 bg-white relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-96 h-96 bg-[#F15924]/5 rounded-full blur-[100px]" />
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial="initial"
             whileInView="animate"
@@ -350,7 +356,11 @@ export default function PackagesPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 gradient-hero grid-pattern relative">
+      <section className="py-24 relative" style={{ backgroundImage: 'url(/hero2.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0A2540]/95 to-[#0F172A]/95" />
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#F15924]/20 rounded-full blur-[100px]" />
+        </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 40 }}

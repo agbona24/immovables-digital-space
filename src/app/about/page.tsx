@@ -32,24 +32,24 @@ const staggerContainer = {
 
 const team = [
   {
-    name: 'Tunde Adeyemi',
-    role: 'Founder & CEO',
-    bio: 'Visionary tech entrepreneur with 10+ years in digital transformation.'
+    name: 'Afuda-iyoke Jude',
+    role: 'CEO/MD',
+    initials: 'AJ'
   },
   {
-    name: 'Adaobi Okonkwo',
-    role: 'CTO',
-    bio: 'AI specialist and software architect driving technical innovation.'
+    name: 'Afuda-iyoke Promise',
+    role: 'COO',
+    initials: 'AP'
   },
   {
-    name: 'Emeka Nwosu',
-    role: 'Head of Marketing',
-    bio: 'Digital marketing expert with expertise in growth strategies.'
+    name: 'Azeez Agbona O.',
+    role: 'Head of I.T',
+    initials: 'AA'
   },
   {
-    name: 'Fatima Bello',
-    role: 'Creative Director',
-    bio: 'Award-winning designer creating impactful brand experiences.'
+    name: 'Sherif Badrudeen Olalekan',
+    role: 'HR',
+    initials: 'SB'
   }
 ];
 
@@ -80,7 +80,8 @@ export default function AboutPage() {
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
-      <section className="gradient-hero grid-pattern relative py-32">
+      <section className="relative py-32" style={{ backgroundImage: 'url(/hero1.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0A2540]/90 via-[#0A2540]/85 to-[#0F172A]/90" />
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#F15924]/20 rounded-full blur-3xl pulse-glow" />
         </div>
@@ -106,8 +107,10 @@ export default function AboutPage() {
       </section>
 
       {/* Mission & Vision */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 bg-gradient-to-br from-[#FAFBFC] to-white relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#F15924]/5 rounded-full blur-[100px]" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#2563EB]/5 rounded-full blur-[100px]" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid lg:grid-cols-2 gap-16">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -149,8 +152,10 @@ export default function AboutPage() {
       </section>
 
       {/* Our Story */}
-      <section className="py-24 bg-[#F8FAFC]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 relative" style={{ backgroundImage: 'url(/hero2.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0A2540]/95 to-[#0F172A]/95" />
+        <div className="absolute top-1/4 right-0 w-80 h-80 bg-[#F15924]/10 rounded-full blur-[100px]" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -159,21 +164,21 @@ export default function AboutPage() {
               transition={{ duration: 0.6 }}
             >
               <span className="inline-block text-[#F15924] font-semibold mb-4">OUR STORY</span>
-              <h2 className="text-3xl md:text-4xl font-bold text-[#1E293B] mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
                 From Vision to Digital Revolution
               </h2>
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-300 mb-6">
                 Founded in 2021, Immovables Digital Space emerged from a simple observation: 
                 African businesses needed access to the same caliber of digital infrastructure 
                 available to global enterprises.
               </p>
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-300 mb-6">
                 Our founders, with backgrounds in AI, software development, and digital marketing, 
                 came together to bridge this gap. What started as a small team building websites 
                 has evolved into a full-service digital transformation company serving clients 
                 across multiple industries.
               </p>
-              <p className="text-gray-600">
+              <p className="text-gray-300">
                 Today, we&apos;re at the forefront of AI-powered business solutions, helping 
                 companies automate operations, generate leads, and scale efficiently using 
                 cutting-edge technology.
@@ -195,10 +200,10 @@ export default function AboutPage() {
               ].map((stat, index) => (
                 <div 
                   key={index}
-                  className="bg-white rounded-2xl p-8 text-center shadow-lg"
+                  className="bg-white/10 backdrop-blur border border-white/10 rounded-2xl p-8 text-center"
                 >
                   <p className="text-4xl font-bold text-[#F15924] mb-2">{stat.value}</p>
-                  <p className="text-gray-600">{stat.label}</p>
+                  <p className="text-gray-300">{stat.label}</p>
                 </div>
               ))}
             </motion.div>
@@ -207,8 +212,9 @@ export default function AboutPage() {
       </section>
 
       {/* Core Values */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 bg-gradient-to-br from-[#FAFBFC] to-white relative overflow-hidden">
+        <div className="absolute top-20 left-0 w-96 h-96 bg-[#F15924]/5 rounded-full blur-[100px]" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <motion.div
             initial="initial"
             whileInView="animate"
@@ -255,7 +261,8 @@ export default function AboutPage() {
       </section>
 
       {/* Our Approach */}
-      <section className="py-24 gradient-dark grid-pattern relative">
+      <section className="py-24 relative" style={{ backgroundImage: 'url(/hero2.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0A2540]/90 via-[#0A2540]/85 to-[#0F172A]/90" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial="initial"
@@ -317,7 +324,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team Section */}
-      <section className="py-24 bg-[#F8FAFC]" id="team">
+      <section className="py-24 bg-[#FAFBFC]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="initial"
@@ -351,13 +358,17 @@ export default function AboutPage() {
               <motion.div
                 key={index}
                 variants={fadeInUp}
-                className="bg-white rounded-2xl overflow-hidden shadow-lg card-hover"
+                className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow group"
               >
-                <div className="h-48 gradient-orange" />
+                <div className="h-48 bg-gradient-to-br from-[#0A2540] to-[#0F172A] flex items-center justify-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-[#F15924]/10 group-hover:bg-[#F15924]/20 transition-colors" />
+                  <span className="text-5xl font-bold text-white/20 group-hover:text-white/30 transition-colors">
+                    {member.initials}
+                  </span>
+                </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-[#1E293B] mb-1">{member.name}</h3>
-                  <p className="text-[#F15924] font-medium mb-3">{member.role}</p>
-                  <p className="text-gray-600 text-sm">{member.bio}</p>
+                  <p className="text-[#F15924] font-medium">{member.role}</p>
                 </div>
               </motion.div>
             ))}
@@ -366,8 +377,9 @@ export default function AboutPage() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 bg-gradient-to-br from-white to-[#FAFBFC] relative overflow-hidden">
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#2563EB]/5 rounded-full blur-[100px]" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -433,7 +445,8 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 gradient-hero grid-pattern relative">
+      <section className="py-24 relative" style={{ backgroundImage: 'url(/hero2.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0A2540]/90 via-[#0A2540]/85 to-[#0F172A]/90" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 40 }}

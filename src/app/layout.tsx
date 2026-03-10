@@ -18,6 +18,11 @@ export const metadata: Metadata = {
   title: "Immovables Digital Space | AI-Powered Digital Infrastructure",
   description: "Build powerful digital systems that attract clients and scale your business. We create intelligent marketing systems, AI automation, websites, branding, and business technology solutions.",
   keywords: "AI automation, digital marketing, web development, branding, business software, Nigeria, Africa",
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
   openGraph: {
     title: "Immovables Digital Space | AI-Powered Digital Infrastructure",
     description: "Build powerful digital systems that attract clients and scale your business.",
