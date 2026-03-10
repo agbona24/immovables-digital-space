@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-
-// Form submission API route
-// In production, integrate with email service (Resend, SendGrid, etc.) or store in database
+import nodemailer from 'nodemailer';
 
 interface FormData {
   formType: 'contact' | 'free-audit';
@@ -21,6 +19,117 @@ interface FormData {
   challenge?: string;
 }
 
+// Create reusable transporter
+const createTransporter = () => {
+  return nodemailer.createTransport({
+    host: process.env.EMAIL_HOST || 'smtp.gmail.com',
+    port: parseInt(process.env.EMAIL_PORT || '587'),
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
+};
+
+// Format contact form email
+const formatContactEmail = (data: FormData) => {
+  return `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+      <div style="background: linear-gradient(135deg, #0A2540 0%, #1a3a5c 100%); padding: 30px; text-align: center;">
+        <h1 style="color: #F15924; margin: 0;">New Contact Form Submission</h1>
+      </div>
+      <div style="background: #f8f9fa; padding: 30px;">
+        <h2 style="color: #0A2540; border-bottom: 2px solid #F15924; padding-bottom: 10px;">Contact Details</h2>
+        <table style="width: 100%; border-collapse: collapse;">
+          <tr>
+            <td style="padding: 10px 0; color: #666; width: 140px;"><strong>Name:</strong></td>
+            <td style="padding: 10px 0; color: #333;">${data.firstName || ''} ${data.lastName || ''}</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 0; color: #666;"><strong>Email:</strong></td>
+            <td style="padding: 10px 0; color: #333;"><a href="mailto:${data.email}">${data.email}</a></td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 0; color: #666;"><strong>Phone:</strong></td>
+            <td style="padding: 10px 0; color: #333;">${data.phone || 'Not provided'}</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 0; color: #666;"><strong>Company:</strong></td>
+            <td style="padding: 10px 0; color: #333;">${data.company || 'Not provided'}</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 0; color: #666;"><strong>Service:</strong></td>
+            <td style="padding: 10px 0; color: #333;">${data.service || 'Not specified'}</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 0; color: #666;"><strong>Budget:</strong></td>
+            <td style="padding: 10px 0; color: #333;">${data.budget || 'Not specified'}</td>
+          </tr>
+        </table>
+        <h2 style="color: #0A2540; border-bottom: 2px solid #F15924; padding-bottom: 10px; margin-top: 30px;">Message</h2>
+        <p style="color: #333; line-height: 1.6; background: white; padding: 20px; border-radius: 8px;">
+          ${data.message || 'No message provided'}
+        </p>
+      </div>
+      <div style="background: #0A2540; padding: 20px; text-align: center;">
+        <p style="color: #888; margin: 0; font-size: 12px;">
+          Submitted on ${new Date().toLocaleString('en-US', { timeZone: 'Africa/Lagos' })} (WAT)
+        </p>
+      </div>
+    </div>
+  `;
+};
+
+// Format free audit form email
+const formatAuditEmail = (data: FormData) => {
+  return `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+      <div style="background: linear-gradient(135deg, #F15924 0%, #ff7849 100%); padding: 30px; text-align: center;">
+        <h1 style="color: white; margin: 0;">🎯 New Free Audit Request</h1>
+      </div>
+      <div style="background: #f8f9fa; padding: 30px;">
+        <h2 style="color: #0A2540; border-bottom: 2px solid #F15924; padding-bottom: 10px;">Business Information</h2>
+        <table style="width: 100%; border-collapse: collapse;">
+          <tr>
+            <td style="padding: 10px 0; color: #666; width: 160px;"><strong>Business Name:</strong></td>
+            <td style="padding: 10px 0; color: #333;">${data.businessName || 'Not provided'}</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 0; color: #666;"><strong>Website URL:</strong></td>
+            <td style="padding: 10px 0; color: #333;"><a href="${data.websiteUrl}" target="_blank">${data.websiteUrl || 'Not provided'}</a></td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 0; color: #666;"><strong>Email:</strong></td>
+            <td style="padding: 10px 0; color: #333;"><a href="mailto:${data.email}">${data.email}</a></td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 0; color: #666;"><strong>Phone:</strong></td>
+            <td style="padding: 10px 0; color: #333;">${data.phone || 'Not provided'}</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 0; color: #666;"><strong>Industry:</strong></td>
+            <td style="padding: 10px 0; color: #333;">${data.industry || 'Not specified'}</td>
+          </tr>
+        </table>
+        <h2 style="color: #0A2540; border-bottom: 2px solid #F15924; padding-bottom: 10px; margin-top: 30px;">Main Challenge</h2>
+        <p style="color: #333; line-height: 1.6; background: white; padding: 20px; border-radius: 8px;">
+          ${data.challenge || 'No challenge specified'}
+        </p>
+        <div style="background: #e8f4e8; padding: 15px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #28a745;">
+          <strong style="color: #28a745;">Action Required:</strong>
+          <p style="margin: 5px 0 0 0; color: #333;">Please complete the digital audit within 48 hours.</p>
+        </div>
+      </div>
+      <div style="background: #0A2540; padding: 20px; text-align: center;">
+        <p style="color: #888; margin: 0; font-size: 12px;">
+          Submitted on ${new Date().toLocaleString('en-US', { timeZone: 'Africa/Lagos' })} (WAT)
+        </p>
+      </div>
+    </div>
+  `;
+};
+
 export async function POST(request: NextRequest) {
   try {
     const data: FormData = await request.json();
@@ -33,32 +142,36 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Log the submission (in production, send email or store in database)
+    // Log the submission
     console.log('Form submission received:', {
       type: data.formType,
       timestamp: new Date().toISOString(),
       data
     });
 
-    // Here you would integrate with:
-    // 1. Email service (Resend, SendGrid, etc.) to send notification emails
-    // 2. CRM (HubSpot, Salesforce, etc.) to create leads
-    // 3. Database to store submissions
-    // 4. Slack/Discord webhook for notifications
+    // Send email notification
+    const transporter = createTransporter();
+    
+    const emailTo = process.env.EMAIL_TO || 'info@immovablestech.com';
+    const emailFrom = process.env.EMAIL_FROM || 'info@immovablestech.com';
 
-    // Example: Send to email service
-    // await sendEmail({
-    //   to: 'info@immovablestech.com',
-    //   subject: data.formType === 'contact' ? 'New Contact Form Submission' : 'New Free Audit Request',
-    //   body: formatEmailBody(data)
-    // });
+    const isContactForm = data.formType === 'contact';
+    
+    const mailOptions = {
+      from: `"IDS Website" <${emailFrom}>`,
+      to: emailTo,
+      replyTo: data.email,
+      subject: isContactForm 
+        ? `📩 New Contact: ${data.firstName || ''} ${data.lastName || ''} - ${data.service || 'General Inquiry'}`
+        : `🎯 Free Audit Request: ${data.businessName || data.email}`,
+      html: isContactForm ? formatContactEmail(data) : formatAuditEmail(data),
+    };
 
-    // Simulate processing delay
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await transporter.sendMail(mailOptions);
 
     return NextResponse.json({
       success: true,
-      message: data.formType === 'contact' 
+      message: isContactForm 
         ? 'Thank you for your message! We\'ll get back to you within 24 hours.'
         : 'Thank you! Your free audit request has been submitted. We\'ll send your report within 48 hours.'
     });
