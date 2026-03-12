@@ -370,19 +370,42 @@ export const queries = {
 
 // Fetch functions
 export async function getPosts() {
-  return client.fetch(queries.allPosts);
+  try {
+    const posts = await client.fetch(queries.allPosts);
+    return posts || [];
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    return [];
+  }
 }
 
 export async function getFeaturedPosts() {
-  return client.fetch(queries.featuredPosts);
+  try {
+    const posts = await client.fetch(queries.featuredPosts);
+    return posts || [];
+  } catch (error) {
+    console.error('Error fetching featured posts:', error);
+    return [];
+  }
 }
 
 export async function getPostBySlug(slug: string) {
-  return client.fetch(queries.postBySlug, { slug });
+  try {
+    return await client.fetch(queries.postBySlug, { slug });
+  } catch (error) {
+    console.error('Error fetching post by slug:', error);
+    return null;
+  }
 }
 
 export async function getProjects() {
-  return client.fetch(queries.allProjects);
+  try {
+    const projects = await client.fetch(queries.allProjects);
+    return projects || [];
+  } catch (error) {
+    console.error('Error fetching projects:', error);
+    return [];
+  }
 }
 
 const categoryLabels: Record<string, string> = {
@@ -394,102 +417,234 @@ const categoryLabels: Record<string, string> = {
   mobile: 'Mobile App',
 };
 
+// Fallback portfolio data when Sanity is unavailable
+const fallbackPortfolio = [
+  { title: 'Cascadia Holdings', category: 'Logistics, Green Energy and Farm Stead', image: '/portfolio/cascadia.png', url: 'https://www.cascadiaholdings.net/' },
+  { title: 'Affordable Gadgets', category: 'No 1 Gadgets Store in Ogun State', image: '/portfolio/affordable.png', url: 'https://www.affordablegadgets.ng/' },
+  { title: 'MPS Solar Energy', category: 'Premium Power, Security & Smart Automation', image: '/portfolio/mpssolar.png', url: 'https://mps.solar/' },
+];
+
 export async function getFeaturedProjects() {
-  const projects = await client.fetch(queries.featuredProjects);
-  
-  // Transform to match PortfolioItem interface expected by HomeClient
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return projects.map((project: any) => ({
-    title: project.title,
-    category: categoryLabels[project.category] || project.category,
-    image: project.image ? urlFor(project.image).url() : '/portfolio/placeholder.png',
-    url: project.link || '#',
-  }));
+  try {
+    const projects = await client.fetch(queries.featuredProjects);
+    
+    if (!projects || projects.length === 0) {
+      return fallbackPortfolio;
+    }
+    
+    // Transform to match PortfolioItem interface expected by HomeClient
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return projects.map((project: any) => ({
+      title: project.title,
+      category: categoryLabels[project.category] || project.category,
+      image: project.image ? urlFor(project.image).url() : '/portfolio/placeholder.png',
+      url: project.link || '#',
+    }));
+  } catch (error) {
+    console.error('Error fetching featured projects:', error);
+    return fallbackPortfolio;
+  }
 }
 
 export async function getServices() {
-  return client.fetch(queries.allServices);
+  try {
+    const services = await client.fetch(queries.allServices);
+    return services || [];
+  } catch (error) {
+    console.error('Error fetching services:', error);
+    return [];
+  }
 }
 
 export async function getTeamMembers() {
-  return client.fetch(queries.allTeamMembers);
+  try {
+    const members = await client.fetch(queries.allTeamMembers);
+    return members || [];
+  } catch (error) {
+    console.error('Error fetching team members:', error);
+    return [];
+  }
 }
 
 export async function getTestimonials() {
-  return client.fetch(queries.allTestimonials);
+  try {
+    const testimonials = await client.fetch(queries.allTestimonials);
+    return testimonials || [];
+  } catch (error) {
+    console.error('Error fetching testimonials:', error);
+    return [];
+  }
 }
 
 export async function getFeaturedTestimonials() {
-  return client.fetch(queries.featuredTestimonials);
+  try {
+    const testimonials = await client.fetch(queries.featuredTestimonials);
+    return testimonials || [];
+  } catch (error) {
+    console.error('Error fetching featured testimonials:', error);
+    return [];
+  }
 }
 
 export async function getPackages() {
-  return client.fetch(queries.allPackages);
+  try {
+    const packages = await client.fetch(queries.allPackages);
+    return packages || [];
+  } catch (error) {
+    console.error('Error fetching packages:', error);
+    return [];
+  }
 }
 
 export async function getCategories() {
-  return client.fetch(queries.allCategories);
+  try {
+    const categories = await client.fetch(queries.allCategories);
+    return categories || [];
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    return [];
+  }
 }
 
 // Site Settings & Pages
 export async function getSiteSettings() {
-  return client.fetch(queries.siteSettings);
+  try {
+    return await client.fetch(queries.siteSettings);
+  } catch (error) {
+    console.error('Error fetching site settings:', error);
+    return null;
+  }
 }
 
 export async function getHomePage() {
-  return client.fetch(queries.homePage);
+  try {
+    const page = await client.fetch(queries.homePage);
+    return page || null;
+  } catch (error) {
+    console.error('Error fetching home page:', error);
+    return null;
+  }
 }
 
 export async function getServicesPage() {
-  return client.fetch(queries.servicesPage);
+  try {
+    return await client.fetch(queries.servicesPage);
+  } catch (error) {
+    console.error('Error fetching services page:', error);
+    return null;
+  }
 }
 
 export async function getAiSolutionsPage() {
-  return client.fetch(queries.aiSolutionsPage);
+  try {
+    return await client.fetch(queries.aiSolutionsPage);
+  } catch (error) {
+    console.error('Error fetching AI solutions page:', error);
+    return null;
+  }
 }
 
 export async function getIndustriesPage() {
-  return client.fetch(queries.industriesPage);
+  try {
+    return await client.fetch(queries.industriesPage);
+  } catch (error) {
+    console.error('Error fetching industries page:', error);
+    return null;
+  }
 }
 
 export async function getContactPage() {
-  return client.fetch(queries.contactPage);
+  try {
+    return await client.fetch(queries.contactPage);
+  } catch (error) {
+    console.error('Error fetching contact page:', error);
+    return null;
+  }
 }
 
 export async function getFreeAuditPage() {
-  return client.fetch(queries.freeAuditPage);
+  try {
+    return await client.fetch(queries.freeAuditPage);
+  } catch (error) {
+    console.error('Error fetching free audit page:', error);
+    return null;
+  }
 }
 
 export async function getAboutPage() {
-  return client.fetch(queries.aboutPage);
+  try {
+    return await client.fetch(queries.aboutPage);
+  } catch (error) {
+    console.error('Error fetching about page:', error);
+    return null;
+  }
 }
 
 export async function getInsightsPage() {
-  return client.fetch(queries.insightsPage);
+  try {
+    return await client.fetch(queries.insightsPage);
+  } catch (error) {
+    console.error('Error fetching insights page:', error);
+    return null;
+  }
 }
 
 export async function getPortfolioPage() {
-  return client.fetch(queries.portfolioPage);
+  try {
+    return await client.fetch(queries.portfolioPage);
+  } catch (error) {
+    console.error('Error fetching portfolio page:', error);
+    return null;
+  }
 }
 
 export async function getPackagesPage() {
-  return client.fetch(queries.packagesPage);
+  try {
+    return await client.fetch(queries.packagesPage);
+  } catch (error) {
+    console.error('Error fetching packages page:', error);
+    return null;
+  }
 }
 
 // Industries & AI Solutions
 export async function getIndustries() {
-  return client.fetch(queries.allIndustries);
+  try {
+    const industries = await client.fetch(queries.allIndustries);
+    return industries || [];
+  } catch (error) {
+    console.error('Error fetching industries:', error);
+    return [];
+  }
 }
 
 export async function getAiSolutions() {
-  return client.fetch(queries.allAiSolutions);
+  try {
+    const solutions = await client.fetch(queries.allAiSolutions);
+    return solutions || [];
+  } catch (error) {
+    console.error('Error fetching AI solutions:', error);
+    return [];
+  }
 }
 
 // FAQs
 export async function getFaqs() {
-  return client.fetch(queries.allFaqs);
+  try {
+    const faqs = await client.fetch(queries.allFaqs);
+    return faqs || [];
+  } catch (error) {
+    console.error('Error fetching FAQs:', error);
+    return [];
+  }
 }
 
 export async function getFaqsByCategory(category: string) {
-  return client.fetch(queries.faqsByCategory, { category });
+  try {
+    const faqs = await client.fetch(queries.faqsByCategory, { category });
+    return faqs || [];
+  } catch (error) {
+    console.error('Error fetching FAQs by category:', error);
+    return [];
+  }
 }

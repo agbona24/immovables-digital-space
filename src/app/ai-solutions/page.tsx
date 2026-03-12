@@ -4,13 +4,19 @@ import AiSolutionsClient from './AiSolutionsClient';
 export const revalidate = 60;
 
 async function getAiBenefits() {
-  return client.fetch(`
-    *[_type == "aiBenefit"] | order(order asc) {
-      icon,
-      title,
-      description
-    }
-  `);
+  try {
+    const benefits = await client.fetch(`
+      *[_type == "aiBenefit"] | order(order asc) {
+        icon,
+        title,
+        description
+      }
+    `);
+    return benefits || [];
+  } catch (error) {
+    console.error('Error fetching AI benefits:', error);
+    return [];
+  }
 }
 
 export default async function AiSolutionsPage() {

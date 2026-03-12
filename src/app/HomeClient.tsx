@@ -132,20 +132,20 @@ const fallbackPackages = [
 
 const fallbackPortfolio = [
   {
-    title: 'Affordable Gadgets',
-    category: 'E-commerce Website',
-    image: '/portfolio/affordable.png',
-    url: 'https://www.affordablegadgets.ng/'
-  },
-  {
     title: 'Cascadia Holdings',
-    category: 'Corporate Website',
+    category: 'Logistics, Green Energy and Farm Stead',
     image: '/portfolio/cascadia.png',
     url: 'https://www.cascadiaholdings.net/'
   },
   {
-    title: 'MPS Solar',
-    category: 'Energy Solutions Website',
+    title: 'Affordable Gadgets',
+    category: 'No 1 Gadgets Store in Ogun State',
+    image: '/portfolio/affordable.png',
+    url: 'https://www.affordablegadgets.ng/'
+  },
+  {
+    title: 'MPS Solar Energy',
+    category: 'Premium Power, Security & Smart Automation',
     image: '/portfolio/mpssolar.png',
     url: 'https://mps.solar/'
   }
