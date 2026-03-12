@@ -102,7 +102,7 @@ const fallbackTestimonials = [
 const fallbackPackages = [
   {
     name: 'Starter',
-    price: '₦350K',
+    price: '₦500K',
     period: 'one-time',
     features: ['5-Page Website', 'Basic SEO Setup', 'Mobile Responsive', '1 Month Support'],
     highlight: false
@@ -1119,7 +1119,7 @@ export default function HomeClient({
                           <Bot size={12} className="text-white" />
                         </div>
                         <div className="bg-[#F15924]/20 border border-[#F15924]/30 rounded-lg p-2 text-xs text-white flex-1">
-                          We have 4 packages starting from ₦350K. Would you like me to explain each?
+                          We have 4 packages starting from ₦500K. Would you like me to explain each?
                         </div>
                       </div>
                     </div>

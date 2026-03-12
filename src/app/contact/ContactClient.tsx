@@ -370,14 +370,14 @@ export default function ContactClient({ pageData, siteSettings, faqs }: ContactC
                               <label className="block text-sm font-semibold text-gray-700 mb-2">
                                 Project Budget
                               </label>
-                              <select 
+                              <select
                                 name="budget"
                                 value={formData.budget}
                                 onChange={handleInputChange}
                                 className="w-full px-4 py-3.5 rounded-xl border-2 border-gray-200 bg-gray-50 focus:bg-white focus:border-[#F15924] focus:outline-none transition-all duration-200"
                               >
                                 <option value="">Select budget range</option>
-                                <option value="350k-750k">₦350,000 - ₦750,000</option>
+                                <option value="500k-750k">₦500,000 - ₦750,000</option>
                                 <option value="750k-1.5m">₦750,000 - ₦1,500,000</option>
                                 <option value="1.5m-3m">₦1,500,000 - ₦3,000,000</option>
                                 <option value="3m+">₦3,000,000+</option>

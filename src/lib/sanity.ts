@@ -431,6 +431,19 @@ export async function getFeaturedProjects() {
     if (!projects || projects.length === 0) {
       return fallbackPortfolio;
     }
+
+    const returnedTitles = new Set(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      projects.map((project: any) => String(project.title || '').toLowerCase())
+    );
+
+    const hasExpectedFeaturedProjects = fallbackPortfolio.every((project) =>
+      returnedTitles.has(project.title.toLowerCase())
+    );
+
+    if (!hasExpectedFeaturedProjects) {
+      return fallbackPortfolio;
+    }
     
     // Transform to match PortfolioItem interface expected by HomeClient
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
