@@ -3,6 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import FloatingContactMenu from "@/components/FloatingContactMenu";
+import ScrollProgress from "@/components/ScrollProgress";
+import ExitIntentPopup from "@/components/ExitIntentPopup";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,9 +43,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <ScrollProgress />
         <Navbar />
         <main>{children}</main>
         <Footer />
+        <FloatingContactMenu />
+        <ExitIntentPopup />
       </body>
     </html>
   );
