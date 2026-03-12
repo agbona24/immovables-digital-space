@@ -86,44 +86,44 @@ export default function Footer() {
 
       {/* CTA Section */}
       <div className="relative border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-12 lg:py-20">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="relative bg-gradient-to-r from-[#F15924] to-[#FF6B35] rounded-3xl p-12 overflow-hidden"
+            className="relative bg-gradient-to-r from-[#F15924] to-[#FF6B35] rounded-2xl lg:rounded-3xl p-6 lg:p-12 overflow-hidden"
           >
             {/* Decorative Elements */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full blur-3xl" />
-            <div className="absolute top-1/2 right-10 transform -translate-y-1/2 opacity-10">
+            <div className="absolute top-0 right-0 w-48 lg:w-64 h-48 lg:h-64 bg-white/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-32 lg:w-48 h-32 lg:h-48 bg-white/10 rounded-full blur-3xl" />
+            <div className="hidden lg:block absolute top-1/2 right-10 transform -translate-y-1/2 opacity-10">
               <Globe size={200} />
             </div>
             
-            <div className="relative grid lg:grid-cols-2 gap-8 items-center">
-              <div>
+            <div className="relative grid lg:grid-cols-2 gap-6 lg:gap-8 items-center">
+              <div className="text-center lg:text-left">
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.2 }}
-                  className="flex items-center gap-2 mb-4"
+                  className="flex items-center gap-2 mb-3 lg:mb-4 justify-center lg:justify-start"
                 >
-                  <Sparkles className="text-white" size={20} />
-                  <span className="text-white/90 font-medium">Ready to Transform?</span>
+                  <Sparkles className="text-white" size={18} />
+                  <span className="text-white/90 font-medium text-sm">Ready to Transform?</span>
                 </motion.div>
-                <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                <h3 className="text-2xl lg:text-4xl font-bold text-white mb-3 lg:mb-4">
                   Let&apos;s Build Something Extraordinary Together
                 </h3>
-                <p className="text-white/80 text-lg max-w-xl">
+                <p className="text-white/80 text-base lg:text-lg max-w-xl">
                   Get a free digital audit and discover how AI-powered solutions can accelerate your business growth.
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-4 lg:justify-end">
+              <div className="flex flex-col sm:flex-row gap-3 lg:gap-4 lg:justify-end">
                 <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Link 
                     href="/free-audit" 
-                    className="inline-flex items-center gap-2 bg-white text-[#F15924] px-8 py-4 rounded-xl font-bold hover:bg-gray-50 transition-colors shadow-lg"
+                    className="inline-flex items-center justify-center gap-2 bg-white text-[#F15924] px-6 lg:px-8 py-3.5 lg:py-4 rounded-xl font-bold hover:bg-gray-50 transition-colors shadow-lg w-full sm:w-auto"
                   >
                     Get Free Audit <ArrowRight size={18} />
                   </Link>
@@ -131,7 +131,7 @@ export default function Footer() {
                 <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Link 
                     href="/contact" 
-                    className="inline-flex items-center gap-2 bg-white/20 backdrop-blur text-white px-8 py-4 rounded-xl font-bold hover:bg-white/30 transition-colors border border-white/30"
+                    className="inline-flex items-center justify-center gap-2 bg-white/20 backdrop-blur text-white px-6 lg:px-8 py-3.5 lg:py-4 rounded-xl font-bold hover:bg-white/30 transition-colors border border-white/30 w-full sm:w-auto"
                   >
                     Book a Call <Phone size={18} />
                   </Link>
@@ -144,38 +144,38 @@ export default function Footer() {
 
       {/* Newsletter Section */}
       <div className="relative border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-10 lg:py-16">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="flex flex-col lg:flex-row items-center justify-between gap-8"
+            className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8"
           >
             <div className="text-center lg:text-left">
               <div className="flex items-center gap-2 justify-center lg:justify-start mb-2">
-                <Zap className="text-[#F15924]" size={20} />
+                <Zap className="text-[#F15924]" size={18} />
                 <span className="text-[#F15924] font-semibold text-sm uppercase tracking-wider">Newsletter</span>
               </div>
-              <h3 className="text-2xl font-bold mb-2">
+              <h3 className="text-xl lg:text-2xl font-bold mb-2">
                 Stay Ahead with AI & Digital Insights
               </h3>
-              <p className="text-gray-400">
+              <p className="text-gray-400 text-sm lg:text-base">
                 Get weekly tips on AI automation, digital marketing, and business growth.
               </p>
             </div>
             <motion.div 
               whileHover={{ scale: 1.01 }}
-              className="flex w-full lg:w-auto bg-white/5 border border-white/10 rounded-2xl p-2"
+              className="flex flex-col sm:flex-row w-full lg:w-auto bg-white/5 border border-white/10 rounded-xl lg:rounded-2xl p-1.5 lg:p-2 gap-2 sm:gap-0"
             >
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 lg:w-80 px-4 py-3 bg-transparent focus:outline-none text-white placeholder-gray-500"
+                className="flex-1 lg:w-80 px-4 py-3 bg-transparent focus:outline-none text-white placeholder-gray-500 text-base"
               />
               <motion.button 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-[#F15924] hover:bg-[#FF6B35] px-6 py-3 rounded-xl font-semibold flex items-center gap-2 transition-colors"
+                className="bg-[#F15924] hover:bg-[#FF6B35] px-6 py-3 rounded-lg lg:rounded-xl font-semibold flex items-center justify-center gap-2 transition-colors w-full sm:w-auto"
               >
                 <Send size={18} />
                 Subscribe
@@ -186,8 +186,8 @@ export default function Footer() {
       </div>
 
       {/* Main Footer */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12">
+      <div className="relative max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-10 lg:py-16">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12">
           {/* Brand */}
           <motion.div 
             className="lg:col-span-4"

@@ -67,13 +67,13 @@ export default function FloatingContactMenu() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed bottom-24 right-6 z-50 flex flex-col gap-3"
+            className="fixed bottom-36 lg:bottom-24 right-4 lg:right-6 z-50 flex flex-col gap-3"
           >
             {contactOptions.map((option, index) => (
               <motion.button
                 key={option.id}
                 onClick={option.action}
-                className={`flex items-center gap-3 ${option.color} ${option.hoverColor} text-white pl-4 pr-5 py-3 rounded-full shadow-lg transition-colors`}
+                className={`flex items-center gap-3 ${option.color} ${option.hoverColor} text-white pl-4 pr-5 py-2.5 lg:py-3 rounded-full shadow-lg transition-colors`}
                 initial={{ opacity: 0, x: 50, scale: 0.8 }}
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: 50, scale: 0.8 }}
@@ -81,8 +81,8 @@ export default function FloatingContactMenu() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {option.icon}
-                <span className="font-medium whitespace-nowrap">{option.label}</span>
+                <div className="w-5 h-5 lg:w-6 lg:h-6">{option.icon}</div>
+                <span className="font-medium whitespace-nowrap text-sm lg:text-base">{option.label}</span>
               </motion.button>
             ))}
           </motion.div>
@@ -96,7 +96,7 @@ export default function FloatingContactMenu() {
             initial={{ opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 10 }}
-            className="fixed bottom-8 right-24 z-50 bg-white text-[#0A2540] px-4 py-2 rounded-lg shadow-lg text-sm font-medium"
+            className="fixed bottom-20 lg:bottom-8 right-20 lg:right-24 z-50 bg-white text-[#0A2540] px-4 py-2 rounded-lg shadow-lg text-sm font-medium"
           >
             Need help? Click here!
             <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-white" />
@@ -104,13 +104,13 @@ export default function FloatingContactMenu() {
         )}
       </AnimatePresence>
 
-      {/* Main Toggle Button */}
+      {/* Main Toggle Button - Higher on mobile to avoid bottom nav */}
       <motion.button
         onClick={() => {
           setIsOpen(!isOpen);
           setShowTooltip(false);
         }}
-        className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-colors ${
+        className={`fixed bottom-24 lg:bottom-6 right-4 lg:right-6 z-50 w-12 h-12 lg:w-14 lg:h-14 rounded-full shadow-lg flex items-center justify-center transition-colors ${
           isOpen ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gradient-to-br from-[#F15924] to-[#ff7849] hover:from-[#d94d1a] hover:to-[#e86a3d]'
         }`}
         whileHover={{ scale: 1.1 }}
@@ -128,7 +128,7 @@ export default function FloatingContactMenu() {
               exit={{ rotate: 90, opacity: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <X className="w-6 h-6 text-white" />
+              <X className="w-5 h-5 lg:w-6 lg:h-6 text-white" />
             </motion.div>
           ) : (
             <motion.div
@@ -138,7 +138,7 @@ export default function FloatingContactMenu() {
               exit={{ rotate: -90, opacity: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <MessageCircle className="w-6 h-6 text-white" />
+              <MessageCircle className="w-5 h-5 lg:w-6 lg:h-6 text-white" />
             </motion.div>
           )}
         </AnimatePresence>
@@ -147,7 +147,7 @@ export default function FloatingContactMenu() {
       {/* Pulse Animation when closed */}
       {!isOpen && (
         <motion.div
-          className="fixed bottom-6 right-6 z-40 w-14 h-14 bg-[#F15924] rounded-full"
+          className="fixed bottom-24 lg:bottom-6 right-4 lg:right-6 z-40 w-12 h-12 lg:w-14 lg:h-14 bg-[#F15924] rounded-full"
           animate={{
             scale: [1, 1.4, 1.4],
             opacity: [0.5, 0, 0],

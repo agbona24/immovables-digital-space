@@ -385,8 +385,26 @@ export async function getProjects() {
   return client.fetch(queries.allProjects);
 }
 
+const categoryLabels: Record<string, string> = {
+  website: 'Website Development',
+  ai: 'AI Solutions',
+  branding: 'Branding',
+  marketing: 'Digital Marketing',
+  ecommerce: 'E-commerce Website',
+  mobile: 'Mobile App',
+};
+
 export async function getFeaturedProjects() {
-  return client.fetch(queries.featuredProjects);
+  const projects = await client.fetch(queries.featuredProjects);
+  
+  // Transform to match PortfolioItem interface expected by HomeClient
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return projects.map((project: any) => ({
+    title: project.title,
+    category: categoryLabels[project.category] || project.category,
+    image: project.image ? urlFor(project.image).url() : '/portfolio/placeholder.png',
+    url: project.link || '#',
+  }));
 }
 
 export async function getServices() {
