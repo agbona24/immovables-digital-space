@@ -877,50 +877,126 @@ export default function HomeClient({
       </section>
 
       {/* Section 5: Industries */}
-      <section className="py-32 bg-[#FAFBFC] relative overflow-hidden">
+      <section className="py-32 bg-gradient-to-b from-white via-[#FAFBFC] to-white relative overflow-hidden">
+        {/* Premium Background Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-20 left-10 w-96 h-96 bg-[#F15924]/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#2563EB]/5 rounded-full blur-3xl" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-gray-100 rounded-full opacity-50" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-gray-100 rounded-full opacity-30" />
+        </div>
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center max-w-3xl mx-auto mb-16"
+            className="text-center max-w-3xl mx-auto mb-20"
           >
-            <span className="inline-flex items-center justify-center gap-2 text-[#F15924] font-semibold text-sm tracking-wider mb-6">
-              <span className="w-8 h-[2px] bg-[#F15924]" />
+            <motion.span 
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center justify-center gap-2 text-[#F15924] font-semibold text-sm tracking-wider mb-6 bg-[#F15924]/10 px-6 py-2 rounded-full"
+            >
+              <span className="w-2 h-2 bg-[#F15924] rounded-full animate-pulse" />
               INDUSTRIES WE SERVE
-              <span className="w-8 h-[2px] bg-[#F15924]" />
-            </span>
+            </motion.span>
             <h2 className="text-4xl md:text-5xl font-bold text-[#0A2540] mb-6">
-              Transforming Industries
+              Transforming <span className="text-gradient-orange">Industries</span>
             </h2>
             <p className="text-lg text-gray-500">
               We&apos;ve helped businesses across diverse sectors achieve digital excellence
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {industryList.map((industry, index) => {
               const IconComponent = industryIconMap[industry.icon] || Building2;
+              const colorGradient = industry.color || 'from-[#F15924] to-[#FF6B35]';
+              const isOrange = colorGradient.includes('F15924');
               return (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                  className={`${index % 2 === 0 ? 'md:mt-8' : ''}`}
+                  transition={{ delay: index * 0.08, duration: 0.5 }}
                 >
-                  <div className="bg-white rounded-2xl p-6 border border-gray-100 hover:border-transparent hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] transition-all duration-500 group cursor-pointer h-full">
-                    <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${industry.color} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500`}>
-                      <IconComponent size={26} className="text-white" />
+                  <motion.div
+                    whileHover={{ y: -8, scale: 1.02 }}
+                    transition={{ type: 'spring', stiffness: 300 }}
+                    className="relative group h-full"
+                  >
+                    {/* Glow Effect on Hover */}
+                    <div className={`absolute -inset-0.5 bg-gradient-to-r ${colorGradient} rounded-3xl opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500`} />
+                    
+                    {/* Card */}
+                    <div className="relative bg-white rounded-3xl p-8 border border-gray-100 group-hover:border-transparent shadow-sm group-hover:shadow-2xl transition-all duration-500 h-full flex flex-col">
+                      {/* Icon Container with Animation */}
+                      <div className="relative mb-6">
+                        <motion.div 
+                          className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${colorGradient} flex items-center justify-center shadow-lg`}
+                          whileHover={{ rotate: [0, -5, 5, 0] }}
+                          transition={{ duration: 0.5 }}
+                        >
+                          <IconComponent size={30} className="text-white" />
+                        </motion.div>
+                        {/* Decorative Ring */}
+                        <div className={`absolute -inset-2 rounded-2xl border-2 ${isOrange ? 'border-[#F15924]/20' : 'border-[#2563EB]/20'} group-hover:scale-110 transition-transform duration-500`} />
+                      </div>
+
+                      {/* Content */}
+                      <h3 className="text-xl font-bold text-[#0A2540] mb-2 group-hover:text-[#F15924] transition-colors">
+                        {industry.name}
+                      </h3>
+                      
+                      {/* Projects Count with Bar */}
+                      <div className="mt-auto pt-4">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-sm text-gray-400 font-medium">Projects</span>
+                          <span className={`text-lg font-bold ${isOrange ? 'text-[#F15924]' : 'text-[#2563EB]'}`}>
+                            {industry.projects}
+                          </span>
+                        </div>
+                        <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                          <motion.div 
+                            className={`h-full bg-gradient-to-r ${colorGradient} rounded-full`}
+                            initial={{ width: 0 }}
+                            whileInView={{ width: '100%' }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1, delay: index * 0.1 }}
+                          />
+                        </div>
+                      </div>
+
+                      {/* Hover Arrow */}
+                      <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+                        <ArrowRight className={`w-5 h-5 ${isOrange ? 'text-[#F15924]' : 'text-[#2563EB]'}`} />
+                      </div>
                     </div>
-                    <h3 className="text-lg font-bold text-[#0A2540] mb-2">{industry.name}</h3>
-                    <p className="text-sm text-gray-400">{industry.projects} Projects</p>
-                  </div>
+                  </motion.div>
                 </motion.div>
               );
             })}
           </div>
+
+          {/* View All Industries Link */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5 }}
+            className="text-center mt-12"
+          >
+            <Link 
+              href="/industries"
+              className="inline-flex items-center gap-2 text-[#F15924] font-semibold hover:gap-4 transition-all group"
+            >
+              View All Industries 
+              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </motion.div>
         </div>
       </section>
 
