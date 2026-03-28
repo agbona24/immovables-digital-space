@@ -1,7 +1,10 @@
 'use client';
 
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import WelcomeBackBanner from '@/components/WelcomeBackBanner';
+import { initVisitorProfile, trackPageVisit } from '@/lib/personalization';
 import { 
   ArrowRight, 
   Bot, 
@@ -262,8 +265,17 @@ export default function HomeClient({
   const packageList = packages && packages.length > 0 ? packages : fallbackPackages;
   const portfolioList = portfolio && portfolio.length > 0 ? portfolio : fallbackPortfolio;
 
+  // Initialize personalization
+  useEffect(() => {
+    initVisitorProfile();
+    trackPageVisit('/');
+  }, []);
+
   return (
     <div className="overflow-hidden">
+      {/* Welcome Back Banner for returning visitors */}
+      <WelcomeBackBanner />
+      
       {/* Hero Section */}
       <section className="min-h-[100svh] lg:min-h-screen relative flex items-center overflow-hidden pt-16 lg:pt-0" style={{ backgroundImage: 'url(/hero1.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
         {/* Dark Overlay */}

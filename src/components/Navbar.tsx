@@ -8,7 +8,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Menu, X, Home, Briefcase, Settings, Mail, 
   LayoutGrid, Sparkles, Building2, FolderOpen, 
-  Package, BookOpen, Info, ChevronRight, Phone
+  Package, BookOpen, Info, ChevronRight, Phone,
+  TrendingUp
 } from 'lucide-react';
 
 const navItems = [
@@ -20,6 +21,7 @@ const navItems = [
   { name: 'Portfolio', href: '/portfolio', icon: FolderOpen },
   { name: 'Packages', href: '/packages', icon: Package },
   { name: 'Insights', href: '/insights', icon: BookOpen },
+  { name: 'Digital Maturity', href: '/digital-maturity', icon: TrendingUp, featured: true },
 ];
 
 // Bottom nav items for mobile (5 max for native feel)
